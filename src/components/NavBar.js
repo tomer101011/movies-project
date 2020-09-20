@@ -4,9 +4,28 @@ import '../styles/navbar-style.css';
 
 export default class NavBar extends Component {
 
+    componentDidMount = () => {
+
+        let prevScrollpos = window.pageYOffset;
+        window.onscroll = () => {
+            let currentScrollPos = window.pageYOffset;
+            //to show navbar on mobile on top
+            if (currentScrollPos === 0)
+                document.getElementById("navbar").style.top = "0"
+
+            else if (prevScrollpos > currentScrollPos)
+                document.getElementById("navbar").style.top = "0";
+
+            else
+                document.getElementById("navbar").style.top = "-800px";
+
+            prevScrollpos = currentScrollPos;
+        }
+    }
+
     render() {
         return (
-            <nav className="navbar navbar-default navbar-expand-lg navbar-light">
+            <nav id="navbar" className="navbar navbar-default navbar-expand-lg navbar-light">
                 <div className="navbar-header">
                     <a className="navbar-brand" href="/#">Movie<b>Mojo</b></a>
                     <button type="button" data-target="#navbarCollapse" data-toggle="collapse" className="navbar-toggle">

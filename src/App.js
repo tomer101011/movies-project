@@ -4,6 +4,7 @@ import './App.css';
 
 import NavBar from './components/NavBar.js';
 import MovieSwiper from './components/MovieSwiper.js';
+import HomeSlider from './components/HomeSlider.js';
 
 
 function App() {
@@ -11,8 +12,8 @@ function App() {
     <div className="App">
 
       <NavBar />
-      <MovieSwiper/>
-      
+      <HomeSlider />
+      <MovieSwiper />
     </div>
   );
 }
