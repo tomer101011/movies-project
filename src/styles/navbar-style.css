@@ -17,6 +17,7 @@ body {
     padding-right: 16px;
     border-bottom: 1px solid #dfe3e8;
     border-radius: 0;
+    top: 0;
 }
 .nav img {
     border-radius: 50%;
@@ -52,20 +53,6 @@ body {
     border-color: #dfe3e8;
     border-radius: 4px !important;
     box-shadow: none
-}
-.search-box .input-group-addon {
-    min-width: 35px;
-    border: none;
-    background: transparent;
-    position: absolute;
-    right: 0;
-    z-index: 9;
-    padding: 7px;
-    height: 100%;
-}
-.search-box i {
-    color: #a0a5b1;
-    font-size: 19px;
 }
 .navbar .nav .btn-primary, .navbar .nav .btn-primary:active {
     color: #fff;
@@ -215,7 +202,6 @@ body {
     .navbar .dropdown-menu.form-wrapper {
         width: 100%;
         padding: 10px 15px;
-        background: transparent;
         border: none;
     }
     .navbar .form-inline {

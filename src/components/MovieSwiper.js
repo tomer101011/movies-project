@@ -33,10 +33,11 @@ export default class MovieSwiper extends Component {
 
                         768: {
                             slidesPerView: 5,
-                            spaceBetween: 5
+                            spaceBetween: 8
                         },
                         1024: {
-                            slidesPerView: 6
+                            slidesPerView: 6,
+                            spaceBetween: 8
                         }
                     }}
                 >
