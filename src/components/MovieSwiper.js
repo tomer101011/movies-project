@@ -39,43 +39,43 @@ export default class MovieSwiper extends Component {
                 }}
             >
                 <SwiperSlide >
-                    <img style={{maxWidth:'100%'}} src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
+                    <img style={{maxWidth:'100%'}} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
                     <h3 className="hometitle">Space Betwen Us</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img style={{maxWidth:'100%'}} src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
+                    <img style={{maxWidth:'100%'}} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
                     <h3 className="hometitle">Space Betwen Us</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img style={{maxWidth:'100%'}} src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
+                    <img style={{maxWidth:'100%'}} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
                     <h3 className="hometitle">Space Betwen Us</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img style={{maxWidth:'100%'}} src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
+                    <img style={{maxWidth:'100%'}} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
                     <h3 className="hometitle">Space Betwen Us</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img style={{maxWidth:'100%'}} src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
+                    <img style={{maxWidth:'100%'}} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
                     <h3 className="hometitle">Space Betwen Us</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img style={{maxWidth:'100%'}} src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
+                    <img style={{maxWidth:'100%'}} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
                     <h3 className="hometitle">Space Betwen Us</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img style={{maxWidth:'100%'}} src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
+                    <img style={{maxWidth:'100%'}} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
                     <h3 className="hometitle">Space Betwen Us</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img style={{maxWidth:'100%'}} src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
+                    <img style={{maxWidth:'100%'}} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
                     <h3 className="hometitle">Space Betwen Us</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img style={{maxWidth:'100%'}} src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
+                    <img style={{maxWidth:'100%'}} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
                     <h3 className="hometitle">Space Betwen Us</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img style={{maxWidth:'100%'}} src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
+                    <img style={{maxWidth:'100%'}} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
                     <h3 className="hometitle">Space Betwen Us</h3>
                 </SwiperSlide>
             </Swiper>
