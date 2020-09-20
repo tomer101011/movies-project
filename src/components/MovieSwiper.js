@@ -36,37 +36,36 @@ export default class MovieSwiper extends Component {
                             spaceBetween: 5
                         },
                         1024: {
-                            slidesPerView: 6,
-                            spaceBetween: 10
+                            slidesPerView: 6
                         }
                     }}
                 >
                     <SwiperSlide >
-                        <img style={{ maxWidth: '78%' }} alt='Space Betwen Us' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/3.jpg" />
+                        <img style={{ maxWidth: '100%' }} alt='Space Betwen Us' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/3.jpg" />
                         <h3 className="hometitle">Space Betwen Us</h3>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <img style={{ maxWidth: '78%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/9.jpg" />
+                        <img style={{ maxWidth: '100%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/9.jpg" />
                         <h3 className="hometitle">Space Betwen Us</h3>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <img style={{ maxWidth: '78%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/4.jpg" />
+                        <img style={{ maxWidth: '100%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/4.jpg" />
                         <h3 className="hometitle">Space Betwen Us</h3>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <img style={{ maxWidth: '78%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/5.jpg" />
+                        <img style={{ maxWidth: '100%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/5.jpg" />
                         <h3 className="hometitle">Space Betwen Us</h3>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <img style={{ maxWidth: '78%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/7.jpg" />
+                        <img style={{ maxWidth: '100%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/7.jpg" />
                         <h3 className="hometitle">Space Betwen Us</h3>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <img style={{ maxWidth: '78%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
+                        <img style={{ maxWidth: '100%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/2.jpg" />
                         <h3 className="hometitle">Space Betwen Us</h3>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <img style={{ maxWidth: '78%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/8.jpg" />
+                        <img style={{ maxWidth: '100%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/8.jpg" />
                         <h3 className="hometitle">Space Betwen Us</h3>
                     </SwiperSlide>
                 </Swiper>
