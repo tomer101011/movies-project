@@ -4,13 +4,6 @@ import '../styles/navbar-style.css';
 
 export default class NavBar extends Component {
 
-    // componentDidMount() {
-    //     // Prevent dropdown menu from closing when click inside the form
-    //     $(document).on("click", ".navbar-right .dropdown-menu", function (e) {
-    //         e.stopPropagation();
-    //     });
-    // }
-
     render() {
         return (
             <nav className="navbar navbar-default navbar-expand-lg navbar-light">
@@ -36,7 +29,7 @@ export default class NavBar extends Component {
                             <a data-toggle="dropdown" className="dropdown-toggle" href="/#">Login</a>
                             <ul className="dropdown-menu form-wrapper">
                                 <li>
-                                    <p class="hint-text">Sign in to your account</p>
+                                    <p className="hint-text">Sign in to your account</p>
                                     <div className="form-group">
                                         <input type="text" className="form-control" placeholder="Username" required="required" />
                                     </div>
