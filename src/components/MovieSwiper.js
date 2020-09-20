@@ -15,7 +15,7 @@ SwiperCore.use([Navigation]);
 export default class MovieSwiper extends Component {
     render() {
         return (
-            <div style={{backgroundColor:'#191919'}}>
+            <div>
                 <h2 className="panel">Recently added</h2>
                 <Swiper
                     navigation
