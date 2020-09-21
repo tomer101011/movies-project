@@ -8,7 +8,7 @@ export default class NavBar extends Component {
         return (
             <nav id="navbar" className="navbar navbar-default navbar-expand-lg navbar-light">
                 <div className="navbar-header">
-                    <a className="navbar-brand" href="#">Movie<b>Mojo</b></a>
+                    <a className="navbar-brand" href="/#">Movie<b>Mojo</b></a>
                     <button type="button" data-target="#navbarCollapse" data-toggle="collapse" className="navbar-toggle">
                         <span className="navbar-toggler-icon"></span>
                         <span className="icon-bar"></span>
