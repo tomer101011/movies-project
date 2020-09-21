@@ -22,7 +22,7 @@ export default class MovieSwiper extends Component {
     }
 
     componentDidMount() {
-        const url = 'http://localhost:9000/movies';
+        const url = 'http://localhost:9000/movies/recent';
         axios.get(url)
             .then(res => {
                 this.setState({ movies: res.data });
