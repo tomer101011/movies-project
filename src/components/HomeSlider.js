@@ -23,16 +23,35 @@ export default class HomeSlider extends Component {
             >
                 <SwiperSlide>
                     <img className="home-swiper" alt='Space Betwen Us' src="https://1.bp.blogspot.com/-hcfAOXtey6w/XerQ38Xw7aI/AAAAAAAASB0/TEwtRQO85TETd8Lxp0hdRQDdZYo4JtgdwCLcBGAsYHQ/w914-h514-p-k-no-nu/star-wars-the-rise-of-skywalker-movie-poster-uhdpaper.com-4K-7.554.jpg" />
-                    <div className="caption"></div>
+                    <div className="caption">
+                        <div className="captioninside">
+                            <h3>Movie Title</h3>
+                            <p>Lorem ipsum dolor siamet</p>
+                            <a href="single.html" className="playbutton">View Info</a>
+                        </div>
+                    </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <img className="home-swiper" alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/slider/poster1.jpg" />
-                    <div className="caption"></div>
+                    <div className="caption">
+                        <div className="captioninside">
+                            <h3>Movie Title</h3>
+                            <p>Lorem ipsum dolor siamet</p>
+                            <a href="single.html" className="playbutton">View Info</a>
+                        </div>
+                    </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <img className="home-swiper" alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/slider/poster2.jpg" />
-                    <div className="caption"></div>
+                    <div className="caption">
+                        <div className="captioninside">
+                            <h3>Movie Title</h3>
+                            <p>Lorem ipsum dolor siamet</p>
+                            <a href="single.html" className="playbutton">View Info</a>
+                        </div>
+                    </div>
                 </SwiperSlide>
+
             </Swiper>
         )
     }

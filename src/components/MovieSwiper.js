@@ -41,9 +41,11 @@ export default class MovieSwiper extends Component {
                         }
                     }}
                 >
-                    <SwiperSlide >
-                        <img style={{ maxWidth: '100%' }} alt='Space Betwen Us' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/3.jpg" />
-                        <h3 className="hometitle">Space Betwen Us</h3>
+                    <SwiperSlide>
+                        <a href="/">
+                            <img style={{ maxWidth: '100%' }} alt='Space Betwen Us' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/3.jpg" />
+                            <h3 className="hometitle">Space Betwen Us</h3>
+                        </a>
                     </SwiperSlide>
                     <SwiperSlide>
                         <img style={{ maxWidth: '100%' }} alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/9.jpg" />
