@@ -25,12 +25,11 @@ export default class MovieSwiper extends Component {
         const url = 'http://localhost:9000/movies';
         axios.get(url)
             .then(res => {
-                this.setState({ movies: res.data })
+                this.setState({ movies: res.data });
             })
             .catch(err => {
                 console.log(err);
             })
-        this.loadMovies();
     }
 
     loadMovies = () => {
@@ -64,12 +63,17 @@ export default class MovieSwiper extends Component {
                         this.state.movies.map((movie, i) => {
                             return <SwiperSlide key={i}>
                                 <a href="/">
-                                    <img style={{ maxWidth: '100%' }} alt={movie.name} src={movie.picture} />
-                                    <h3 className="hometitle">{movie.name}</h3>
+                                    <img style={{ maxWidth: '90%',width:'80%' }} alt={movie.title} src={movie.poster} />
+                                    <h3 className="hometitle">{movie.title}</h3>
                                 </a>
                             </SwiperSlide>
                         })
                     }
+                    <SwiperSlide>
+                        <a href="/">
+                            <img style={{ maxWidth: '100%',width:'78%'}} alt='show others' src={require(`../pictures/others.png`)} />
+                        </a>
+                    </SwiperSlide>
                 </Swiper>
             )
         }
@@ -81,8 +85,8 @@ export default class MovieSwiper extends Component {
             <div>
 
                 <h2 className="panel">Recently added</h2>
-                
-                    {this.loadMovies()}
+
+                {this.loadMovies()}
 
             </div >
         )

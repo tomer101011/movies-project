@@ -54,6 +54,7 @@
     margin: 10px 0;
     text-decoration: none;
     border-radius: 3px;
+    font-size: 20px;
 }
 
 img.home-swiper {
@@ -67,14 +68,21 @@ img.home-swiper {
     }
 
     h3.hometitle {
-        left: 0.6%;
-        right: 0.6%;
+        left: 9%;
+        right: 9%;
+        font-size: 10px;
     }
 
     .captioninside {
-        top: 30px;
+        top: 40px;
         left: 10px;
         max-width: 80%;
+    }
+    .poster-style{
+        font-size: 24px;
+    }
+    .playbutton{
+        font-size: 15px;
     }
 }
 
@@ -97,8 +105,8 @@ img.home-swiper {
     }
 
     h3.hometitle {
-        left: 1%;
-        right: 1%;
+        left: 10%;
+        right: 10%;
     }
 
     .captioninside {
@@ -114,8 +122,8 @@ img.home-swiper {
     }
 
     h3.hometitle {
-        left: 1%;
-        right: 1%;
+        left: 10%;
+        right: 10%;
     }
 
     .captioninside {
@@ -129,28 +137,36 @@ img.home-swiper {
     h3.hometitle {
         left: 15%;
         right: 15%;
+        font-size: 15px;
     }
 }
 
 @media all and (min-width: 1300px) {
     h3.hometitle {
-        left: 4%;
-        right: 4%;
+        left: 10%;
+        right: 10%;
+    }
+
+    .poster-style{
+        font-size: 30px;
+    }
+    .playbutton{
+        font-size: 20px;
     }
 }
 
 @media all and (min-width: 1500px) {
     h3.hometitle {
-        left: 15%;
-        right: 15%;
+        left: 10%;
+        right: 10%;
     }
 }
 
 .panel {
     color: white;
-    padding: 30px 0 8px 40px;
+    padding: 30px 10px 8px 40px;
     text-align: left;
-    font-size: 22px;
+    font-size: 30px;
     margin: 0;
     background-color: #191919;
 }

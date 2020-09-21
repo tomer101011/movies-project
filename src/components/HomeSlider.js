@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import SwiperCore, { Pagination, Autoplay, EffectFade } from 'swiper';
+import axios from "axios";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -12,47 +13,79 @@ import 'swiper/components/pagination/pagination.scss';
 SwiperCore.use([Pagination, Autoplay, EffectFade]);
 
 export default class HomeSlider extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            posters: []
+        }
+    }
+
+    componentDidMount() {
+        const url = 'http://localhost:9000/posters';
+        axios.get(url)
+            .then(res => {
+                let data = res.data;
+                data = this.shuffle(data);
+                this.setState({ posters: data });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    shuffle = (array) => {
+        let currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (currentIndex !== 0) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
+    loadHomeSlider = () => {
+
+        if (this.state.posters.length !== 0) {
+            return (
+                <Swiper
+                    slidesPerView={1}
+                    pagination={{ clickable: true }}
+                    loop={true}
+                    autoplay={{ delay: 4000 }}
+                    effect='fade'
+                >
+                    {
+                        this.state.posters.map((poster, i) => {
+                            return <SwiperSlide key={i}>
+                                <img className="home-swiper" alt={poster.title} src={poster.poster} />
+                                <div className="caption">
+                                    <div className="captioninside">
+                                        <h2 className="poster-style">{poster.title}</h2>
+                                        <a href="single.html" className="playbutton">View Info</a>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        })
+                    }
+                </Swiper>
+            )
+        }
+        else return <div></div>
+    }
+
     render() {
         return (
-            <Swiper
-                slidesPerView={1}
-                pagination={{ clickable: true }}
-                loop={true}
-                autoplay={{ delay: 4000 }}
-                effect='fade'
-            >
-                <SwiperSlide>
-                    <img className="home-swiper" alt='Space Betwen Us' src="https://1.bp.blogspot.com/-hcfAOXtey6w/XerQ38Xw7aI/AAAAAAAASB0/TEwtRQO85TETd8Lxp0hdRQDdZYo4JtgdwCLcBGAsYHQ/w914-h514-p-k-no-nu/star-wars-the-rise-of-skywalker-movie-poster-uhdpaper.com-4K-7.554.jpg" />
-                    <div className="caption">
-                        <div className="captioninside">
-                            <h3>Movie Title</h3>
-                            <p>Lorem ipsum dolor siamet</p>
-                            <a href="single.html" className="playbutton">View Info</a>
-                        </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img className="home-swiper" alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/slider/poster1.jpg" />
-                    <div className="caption">
-                        <div className="captioninside">
-                            <h3>Movie Title</h3>
-                            <p>Lorem ipsum dolor siamet</p>
-                            <a href="single.html" className="playbutton">View Info</a>
-                        </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img className="home-swiper" alt='' src="https://www.focusoncode.com/uploads/demo/movies-trailer/images/slider/poster2.jpg" />
-                    <div className="caption">
-                        <div className="captioninside">
-                            <h3>Movie Title</h3>
-                            <p>Lorem ipsum dolor siamet</p>
-                            <a href="single.html" className="playbutton">View Info</a>
-                        </div>
-                    </div>
-                </SwiperSlide>
-
-            </Swiper>
+            this.loadHomeSlider()
         )
     }
 }
