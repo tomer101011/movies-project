@@ -9,7 +9,7 @@ import 'swiper/components/navigation/navigation.scss';
 import '../styles/swiper-style.css';
 
 // install Swiper components
-SwiperCore.use([Navigation]);
+SwiperCore.use([Navigation]); 
 
 
 export default class MovieSwiper extends Component {
