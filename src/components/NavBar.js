@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 import '../styles/navbar-style.css';
 
@@ -9,7 +10,8 @@ export default class NavBar extends Component {
         super(props);
         this.state = {
             userName: '',
-            password: ''
+            password: '',
+            loggedUserName: ''
         }
     }
 
@@ -22,20 +24,54 @@ export default class NavBar extends Component {
     }
 
     login = () => {
-        const url = 'http://localhost:9000/login';
 
+        const url = 'http://localhost:9000/login';
         const data = {
             userName: this.state.userName,
             password: this.state.password
         }
-
         axios.post(url, data)
-            .then(res => {
-                console.log(res);
+            .then(result => {
+                if (result.data === 'user not found')
+                    console.log('user not found');
+
+                else {
+                    const cookie = new Cookies();
+                    const options = {
+                        path: '/',
+                        maxAge: 120 * 60 * 1000,
+                        sameSite: true
+                    }
+                    cookie.set('userId', result.data.userId, options);
+                }
             })
             .catch(err => {
                 console.log(err);
             })
+    }
+
+    componentDidMount() {
+        const cookie = new Cookies();
+        const userIdCookie = cookie.get('userId');
+        if (userIdCookie !== undefined) {
+            const url = 'http://localhost:9000/login/user';
+
+            axios.post(url, { userId: userIdCookie })
+                .then(result => {
+                    if (result.data === 'user not found')
+                        console.log('user not found');
+
+                    else {
+                        console.log(result.data)
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        else{
+            console.log('user did not log in');
+        }
     }
 
     render() {
