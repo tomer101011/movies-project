@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import SwiperCore, { Pagination, Autoplay, EffectFade } from 'swiper';
-import axios from "axios";
+import axios from 'axios';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -17,12 +17,13 @@ export default class HomeSlider extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posters: []
+            posters: [],
         }
     }
 
     componentDidMount() {
         const url = 'http://localhost:9000/posters';
+
         axios.get(url)
             .then(res => {
                 let data = res.data;

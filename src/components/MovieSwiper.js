@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper';
-import axios from "axios";
+import axios from 'axios';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';

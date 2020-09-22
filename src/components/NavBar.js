@@ -1,8 +1,42 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
 import '../styles/navbar-style.css';
 
 export default class NavBar extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            userName: '',
+            password: ''
+        }
+    }
+
+    setUserName = (e) => {
+        this.setState({ userName: e.target.value });
+    }
+
+    setPassword = (e) => {
+        this.setState({ password: e.target.value });
+    }
+
+    login = () => {
+        const url = 'http://localhost:9000/login';
+
+        const data = {
+            userName: this.state.userName,
+            password: this.state.password
+        }
+
+        axios.post(url, data)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 
     render() {
         return (
@@ -25,12 +59,12 @@ export default class NavBar extends Component {
                                 <li>
                                     <p className="hint-text">Sign in to your account</p>
                                     <div className="form-group">
-                                        <input type="text" className="form-control" placeholder="Username" required="required" />
+                                        <input onChange={this.setUserName} type="text" className="form-control" placeholder="Username" required="required" />
                                     </div>
                                     <div className="form-group">
-                                        <input type="password" className="form-control" placeholder="Password" required="required" />
+                                        <input onChange={this.setPassword} type="password" className="form-control" placeholder="Password" required="required" />
                                     </div>
-                                    <input type="submit" className="btn btn-primary btn-block" value="Login" />
+                                    <input onClick={() => this.login()} type="button" className="btn btn-primary btn-block" value="Login" />
                                 </li>
                             </ul>
                         </li>
