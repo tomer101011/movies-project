@@ -24,7 +24,6 @@ export default class NavBar extends Component {
     }
 
     login = () => {
-
         const url = 'http://localhost:9000/login';
         const data = {
             userName: this.state.userName,
@@ -33,21 +32,29 @@ export default class NavBar extends Component {
         axios.post(url, data)
             .then(result => {
                 if (result.data === 'user not found')
-                    console.log('user not found');
+                    alert('User name or password incorrect');
 
                 else {
                     const cookie = new Cookies();
                     const options = {
                         path: '/',
                         maxAge: 120 * 60 * 1000,
+                        httponly: true,
                         sameSite: true
                     }
                     cookie.set('userId', result.data.userId, options);
+                    this.setState({ loggedUserName: result.data.userName });
                 }
             })
             .catch(err => {
                 console.log(err);
             })
+    }
+
+    logOut = () => {
+        const cookie = new Cookies();
+        cookie.remove('userId');
+        this.setState({ loggedUserName: '' });
     }
 
     componentDidMount() {
@@ -59,18 +66,71 @@ export default class NavBar extends Component {
             axios.post(url, { userId: userIdCookie })
                 .then(result => {
                     if (result.data === 'user not found')
-                        console.log('user not found');
+                        console.log('not found');
 
-                    else {
-                        console.log(result.data)
-                    }
+                    else
+                        this.setState({ loggedUserName: result.data });
                 })
                 .catch(err => {
                     console.log(err);
                 })
         }
-        else{
-            console.log('user did not log in');
+    }
+
+    loadLogButtons = () => {
+        if (this.state.loggedUserName !== '') {
+            return (
+                <ul className="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/#" data-toggle="dropdown" className="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Welcome {this.state.loggedUserName}</a>
+                        <ul className="dropdown-menu form-wrapper">
+                            <li className="center-li">
+                                <input type="button" className="fav-style btn btn-primary btn-block" value="Watch favorites" />
+                                <button onClick={() => this.logOut()} className="logout-text">Log out</button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            );
+        }
+        else {
+            return (
+                <ul className="nav navbar-nav navbar-right">
+                    <li>
+                        <a data-toggle="dropdown" className="dropdown-toggle" href="/#">Login</a>
+                        <ul className="dropdown-menu form-wrapper">
+                            <li>
+                                <p className="hint-text">Sign in to your account</p>
+                                <div className="form-group">
+                                    <input onChange={this.setUserName} type="text" className="form-control" placeholder="Username" required="required" />
+                                </div>
+                                <div className="form-group">
+                                    <input onChange={this.setPassword} type="password" className="form-control" placeholder="Password" required="required" />
+                                </div>
+                                <input onClick={() => this.login()} type="button" className="btn btn-primary btn-block" value="Login" />
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/#" data-toggle="dropdown" className="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Sign up</a>
+                        <ul className="dropdown-menu form-wrapper">
+                            <li>
+                                <p className="hint-text">Fill in this form to create your account!</p>
+                                <div className="form-group">
+                                    <input type="text" className="form-control" placeholder="Username" required="required" />
+                                </div>
+                                <div className="form-group">
+                                    <input type="password" className="form-control" placeholder="Password" required="required" />
+                                </div>
+                                <div className="form-group">
+                                    <input type="password" className="form-control" placeholder="Confirm Password" required="required" />
+                                </div>
+                                <input type="submit" className="btn btn-primary btn-block" value="Sign up" />
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            )
         }
     }
 
@@ -88,41 +148,7 @@ export default class NavBar extends Component {
                 </div>
                 {/* Collection of nav links, forms, and other content for toggling  */}
                 <div id="navbarCollapse" className="collapse navbar-collapse">
-                    <ul className="nav navbar-nav navbar-right">
-                        <li>
-                            <a data-toggle="dropdown" className="dropdown-toggle" href="/#">Login</a>
-                            <ul className="dropdown-menu form-wrapper">
-                                <li>
-                                    <p className="hint-text">Sign in to your account</p>
-                                    <div className="form-group">
-                                        <input onChange={this.setUserName} type="text" className="form-control" placeholder="Username" required="required" />
-                                    </div>
-                                    <div className="form-group">
-                                        <input onChange={this.setPassword} type="password" className="form-control" placeholder="Password" required="required" />
-                                    </div>
-                                    <input onClick={() => this.login()} type="button" className="btn btn-primary btn-block" value="Login" />
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="/#" data-toggle="dropdown" className="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Sign up</a>
-                            <ul className="dropdown-menu form-wrapper">
-                                <li>
-                                    <p className="hint-text">Fill in this form to create your account!</p>
-                                    <div className="form-group">
-                                        <input type="text" className="form-control" placeholder="Username" required="required" />
-                                    </div>
-                                    <div className="form-group">
-                                        <input type="password" className="form-control" placeholder="Password" required="required" />
-                                    </div>
-                                    <div className="form-group">
-                                        <input type="password" className="form-control" placeholder="Confirm Password" required="required" />
-                                    </div>
-                                    <input type="submit" className="btn btn-primary btn-block" value="Sign up" />
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    {this.loadLogButtons()}
                 </div>
             </nav>
         )
