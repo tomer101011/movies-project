@@ -16,9 +16,9 @@ export default class HomePage extends Component {
             return (
                 <div>
                     <HomeSlider />
-                    <MovieSwiper />
-                    <MovieSwiper />
-                    <MovieSwiper />
+                    <MovieSwiper orderSwiper={'recent'} count={10} />
+                    <MovieSwiper orderSwiper={'top-rated'} count={10} />
+                    {/* <MovieSwiper orderSwiper={'favorites'} count={10}/> */}
                 </div>
             );
         }
@@ -26,7 +26,7 @@ export default class HomePage extends Component {
             return (
                 <div>
                     <HomeSlider />
-                    <MovieSwiper />
+                    <MovieSwiper orderSwiper={'recent'} count={5} />
                 </div>
             );
         }
