@@ -44,6 +44,7 @@ export default class NavBar extends Component {
                     }
                     cookie.set('userId', result.data.userId, options);
                     this.setState({ loggedUserName: result.data.userName });
+                    this.props.renderAgain();
                 }
             })
             .catch(err => {
@@ -54,7 +55,8 @@ export default class NavBar extends Component {
     logOut = () => {
         const cookie = new Cookies();
         cookie.remove('userId');
-        this.setState({ loggedUserName: '' });
+        this.setState({ loggedUserName: '', userName: '', password: '' });
+        this.props.renderAgain();
     }
 
     componentDidMount() {
@@ -138,7 +140,7 @@ export default class NavBar extends Component {
         return (
             <nav id="navbar" className="navbar navbar-default navbar-expand-lg navbar-light">
                 <div className="navbar-header">
-                    <a className="navbar-brand" href="/movies-project">Movie<b>Mojo</b></a>
+                    <a className="navbar-brand" href="/">Movie<b>Mojo</b></a>
                     <button type="button" data-target="#navbarCollapse" data-toggle="collapse" className="navbar-toggle">
                         <span className="navbar-toggler-icon"></span>
                         <span className="icon-bar"></span>
