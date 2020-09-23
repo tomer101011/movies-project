@@ -5,6 +5,7 @@ import './App.css';
 
 import HomePage from './components/HomePage.js';
 import NavBar from './components/NavBar.js';
+import MovieInfo from './components/MovieInfo.js';
 import *  as ROUTES from './constants/routes.js';
 
 export default class App extends Component {
@@ -18,6 +19,7 @@ export default class App extends Component {
         <Router>
           <Switch>
             <Route exact path={ROUTES.HOME} render={(props) => <HomePage {...props} />} />
+            <Route exact path={ROUTES.MOVIE} render={(props) => <MovieInfo {...props} />} />
           </Switch>
         </Router>
 

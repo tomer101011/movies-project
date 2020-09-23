@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+
+import *  as ROUTES from '../constants/routes';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
@@ -90,12 +93,13 @@ export default class MovieSwiper extends Component {
                 >
                     {
                         this.state.movies.map((movie, i) => {
-                            return (<SwiperSlide key={i}>
-                                <a href="/">
-                                    <img style={{ maxWidth: '90%', width: '80%' }} alt={movie.title} src={movie.poster} />
-                                    <h3 className="hometitle">{movie.title}</h3>
-                                </a>
-                            </SwiperSlide>
+                            return (
+                                <SwiperSlide key={i}>
+                                    <Link to={{ pathname: ROUTES.MOVIE, state: { movieId: movie.movieId } }}>
+                                        <img style={{ maxWidth: '90%', width: '80%' }} alt={movie.title} src={movie.poster} />
+                                        <h3 className="hometitle">{movie.title}</h3>
+                                    </Link>
+                                </SwiperSlide>
                             )
                         })
                     }

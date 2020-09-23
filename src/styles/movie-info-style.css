@@ -1,0 +1,129 @@
+.wrapper {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+
+.content {
+    float: left;
+    width: 100%;
+}
+
+.single {
+    max-width: 1200px;
+    width: 100%;
+    margin: 50px auto;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+.trailer {
+    float: left;
+    width: calc(100% - 20px);
+    margin: 20px 0;
+    background-color: #202020;
+    padding: 10px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.trailer h3 {
+    float: left;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    color: #fff;
+    padding: 0 10px;
+    width: calc(100% - 20px);
+}
+
+.trailer_frame {
+    float: none;
+    clear: both;
+    width: 100%;
+    position: relative;
+    padding-bottom: 35%;
+    padding-top: 25px;
+    height: 0;
+}
+
+.trailer_frame iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.movie {
+    float: left;
+    width: calc(100% - 20px);
+    background-color: #202020;
+    padding: 10px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.margin-genre{
+    margin-top: 15px;
+}
+
+.movie img {
+    float: left;
+}
+
+.movie ul {
+    float: left;
+    margin: 0 20px;
+    width: calc(100% - 590px);
+}
+
+.movie ul li {
+    float: left;
+    display: block;
+    clear: both;
+    color: #fff;
+    padding: 0 0 10px 0;
+    line-height: 1.4;
+    font-size:16px;
+}
+
+.movie ul li:first-child {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.movie ul li p {
+    color: #82caf3;
+    text-decoration: none;
+}
+.movie ul li p span {
+    color: #f3de82;
+    text-decoration: none;
+}
+
+@media all and (max-width: 1024px) {
+    .movie ul {
+        width: calc(100% - 290px);
+    }
+}
+
+@media all and (max-width: 540px) {
+    .movie img {
+        float: none;
+        max-width: 100px;
+        width: 100%;
+    }
+
+    .movie {
+        text-align: center;
+    }
+
+    .movie ul {
+        float: none;
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .movie ul li {
+        float: none;
+    }
+}
