@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 import SwiperCore, { Pagination, Autoplay, EffectFade } from 'swiper';
 import axios from 'axios';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -71,8 +70,9 @@ export default class HomeSlider extends Component {
                                 <img className="home-swiper" alt={poster.title} src={poster.poster} />
                                 <div className="caption">
                                     <div className="captioninside">
-                                        <h2 className="poster-style">{poster.title}</h2>
-                                        <a href="single.html" className="playbutton">View Info</a>
+                                        <h2 className="title-style">{poster.title}</h2>
+                                        <h2 className="plot-style">{poster.plot}</h2>
+                                        {/* <a href={poster.trailer} className="playbutton">Watch trailer</a> */}
                                     </div>
                                 </div>
                             </SwiperSlide>

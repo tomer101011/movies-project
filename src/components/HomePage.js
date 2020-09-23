@@ -7,13 +7,6 @@ import Cookies from 'universal-cookie';
 
 export default class HomePage extends Component {
 
-    componentDidMount() {
-        const cookie = new Cookies();
-        const movieId = cookie.get('movieId');
-        if (movieId !== undefined)
-            cookie.remove('movieId');
-    }
-
     loadPage = () => {
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');

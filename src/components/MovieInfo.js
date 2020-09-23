@@ -17,23 +17,23 @@ export default class MovieInfo extends Component {
     componentDidMount() {
         const cookie = new Cookies();
         let movieId = cookie.get('movieId');
-        //Problem if using arrows to return back to this page again
-        if (movieId === undefined) {
-            const options = {
-                path: '/',
-                maxAge: 120 * 60 * 1000,
-                httponly: true,
-                sameSite: true
-            }
-            cookie.set('movieId', this.props.location.state.movieId, options);
-        }
 
-        movieId = cookie.get('movieId');
+        if (this.props.location.state)
+            if (movieId === undefined || movieId !== this.props.location.state.movieId) {
+                const options = {
+                    path: '/',
+                    maxAge: 120 * 60 * 1000,
+                    httponly: true,
+                    sameSite: true
+                }
+                cookie.set('movieId', this.props.location.state.movieId, options);
+                movieId = cookie.get('movieId');
+            }
 
         const url = `http://localhost:9000/movies/info`;
         axios.post(url, { movieId })
             .then(res => {
-                this.setState({movieInfo:res.data[0]});
+                this.setState({ movieInfo: res.data[0] });
             })
             .catch(err => {
                 console.log(err);

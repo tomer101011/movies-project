@@ -54,12 +54,25 @@
     margin: 10px 0;
     text-decoration: none;
     border-radius: 3px;
+    border: none;
     font-size: 20px;
 }
 
 img.home-swiper {
     width: 100%;
     height: 350px;
+}
+
+@media all and (min-width: 280px) {
+    .title-style {
+        font-size: 15px;
+        color: #dcf6ff;
+    }
+
+    .plot-style {
+        font-size: 10px;
+        color: white;
+    }
 }
 
 @media all and (min-width: 320px) {
@@ -78,10 +91,18 @@ img.home-swiper {
         left: 10px;
         max-width: 80%;
     }
-    .poster-style{
-        font-size: 24px;
+
+    .title-style {
+        font-size: 15px;
+        color: #dcf6ff;
     }
-    .playbutton{
+
+    .plot-style {
+        font-size: 10px;
+        color: white;
+    }
+
+    .playbutton {
         font-size: 15px;
     }
 }
@@ -89,6 +110,17 @@ img.home-swiper {
 @media all and (min-width: 480px) {
     img.home-swiper {
         height: 300px;
+    }
+
+    .title-style {
+        font-size: 15px;
+        color: #dcf6ff;
+        margin-top: 40px;
+    }
+
+    .plot-style {
+        font-size: 10px;
+        color: white;
     }
 }
 
@@ -111,7 +143,7 @@ img.home-swiper {
 
     .captioninside {
         top: 100px;
-        left: 40px;
+        left: 100px;
         max-width: 80%;
     }
 }
@@ -147,10 +179,21 @@ img.home-swiper {
         right: 10%;
     }
 
-    .poster-style{
+    .title-style {
+        font-weight: 600;
+        color: #dcf6ff;
         font-size: 30px;
     }
-    .playbutton{
+
+    .plot-style {
+        line-height: 30px;
+        font-weight: 600;
+        color: white;
+        font-size: 20px;
+        width: 40%;
+    }
+
+    .playbutton {
         font-size: 20px;
     }
 }
