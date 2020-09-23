@@ -11,55 +11,105 @@ export default class NavBar extends Component {
         this.state = {
             userName: '',
             password: '',
+            newUserName: '',
+            newPassword: '',
+            confirmPassword: '',
             loggedUserName: ''
         }
     }
 
-    setUserName = (e) => {
-        this.setState({ userName: e.target.value });
-    }
+    setUserName = (e) => { this.setState({ userName: e.target.value }); }
 
-    setPassword = (e) => {
-        this.setState({ password: e.target.value });
-    }
+    setPassword = (e) => { this.setState({ password: e.target.value }); }
+
+    setNewUserName = (e) => { this.setState({ newUserName: e.target.value }); }
+
+    setNewPassword = (e) => { this.setState({ newPassword: e.target.value }); }
+
+    setConfirmPassword = (e) => { this.setState({ confirmPassword: e.target.value }); }
+
 
     login = () => {
-        const url = 'http://localhost:9000/login';
-        const data = {
-            userName: this.state.userName,
-            password: this.state.password
-        }
-        axios.post(url, data)
-            .then(result => {
-                if (result.data === 'user not found')
-                    alert('User name or password incorrect');
 
-                else {
-                    const cookie = new Cookies();
-                    const options = {
-                        path: '/',
-                        maxAge: 120 * 60 * 1000,
-                        httponly: true,
-                        sameSite: true
+        if (this.state.userName === '' || this.state.password === '')
+            alert('User name or password can\'t be empty');
+        else {
+            const url = 'http://localhost:9000/login';
+            const data = {
+                userName: this.state.userName,
+                password: this.state.password
+            }
+            axios.post(url, data)
+                .then(result => {
+                    if (result.data === 'user not found')
+                        alert('User name or password incorrect');
+
+                    else {
+                        const cookie = new Cookies();
+                        const options = {
+                            path: '/',
+                            maxAge: 120 * 60 * 1000,
+                            httponly: true,
+                            sameSite: true
+                        }
+                        cookie.set('userId', result.data.userId, options);
+                        this.setState({ loggedUserName: result.data.userName });
+                        window.location.reload(false);
                     }
-                    cookie.set('userId', result.data.userId, options);
-                    this.setState({ loggedUserName: result.data.userName });
-                    this.props.renderAgain();
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }
+
+    signUp = () => {
+        if (this.state.newUserName === '' || this.state.newPassword === '' || this.state.confirmPassword === '')
+            alert('Credentials can\'t be empty');
+
+        else if (this.state.newPassword !== this.state.confirmPassword)
+            alert('You need to confirm the password');
+
+        else {
+            const url = 'http://localhost:9000/signup';
+            const data = {
+                newUserName: this.state.newUserName,
+                newPassword: this.state.newPassword
+            }
+            axios.post(url, data)
+                .then(result => {
+                    if (result.data === 'user name taken')
+                        alert('User name already taken');
+                        
+                    else {
+                        const cookie = new Cookies();
+                        const options = {
+                            path: '/',
+                            maxAge: 120 * 60 * 1000,
+                            httponly: true,
+                            sameSite: true
+                        }
+                        cookie.set('userId', result.data.userId, options);
+                        this.setState({ loggedUserName: result.data.userName });
+                        window.location.reload(false);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
     }
 
     logOut = () => {
         const cookie = new Cookies();
         cookie.remove('userId');
         this.setState({ loggedUserName: '', userName: '', password: '' });
-        this.props.renderAgain();
+        window.location.reload(false);
     }
 
     componentDidMount() {
+
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');
         if (userIdCookie !== undefined) {
@@ -119,15 +169,15 @@ export default class NavBar extends Component {
                             <li>
                                 <p className="hint-text">Fill in this form to create your account!</p>
                                 <div className="form-group">
-                                    <input type="text" className="form-control" placeholder="Username" required="required" />
+                                    <input onChange={this.setNewUserName} type="text" className="form-control" placeholder="Username" required="required" />
                                 </div>
                                 <div className="form-group">
-                                    <input type="password" className="form-control" placeholder="Password" required="required" />
+                                    <input onChange={this.setNewPassword} type="password" className="form-control" placeholder="Password" required="required" />
                                 </div>
                                 <div className="form-group">
-                                    <input type="password" className="form-control" placeholder="Confirm Password" required="required" />
+                                    <input onChange={this.setConfirmPassword} type="password" className="form-control" placeholder="Confirm Password" required="required" />
                                 </div>
-                                <input type="submit" className="btn btn-primary btn-block" value="Sign up" />
+                                <input onClick={() => this.signUp()} type="submit" className="btn btn-primary btn-block" value="Sign up" />
                             </li>
                         </ul>
                     </li>

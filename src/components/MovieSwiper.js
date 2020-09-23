@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper';
+import Cookies from 'universal-cookie';
 import axios from 'axios';
 
 // Import Swiper styles
@@ -27,20 +28,37 @@ export default class MovieSwiper extends Component {
             case 'recent':
                 url = `http://localhost:9000/movies/recent/${this.props.count}`;
                 break;
-            // case 'favorites':
-            //     url = `http://localhost:9000/movies/favorites/${this.props.count}`;
-            //     break;
+            case 'favorites':
+                url = `http://localhost:9000/movies/favorites/${this.props.count}`;
+                break;
             default:
                 url = `http://localhost:9000/movies/topRated/${this.props.count}`;
         }
 
-        axios.get(url)
+        const cookie = new Cookies();
+        const userId = cookie.get('userId');
+        axios.post(url, { userId })
             .then(res => {
                 this.setState({ movies: res.data });
             })
             .catch(err => {
                 console.log(err);
             })
+    }
+
+    showOthersPicture = () => {
+
+        const cookie = new Cookies();
+        const userIdCookie = cookie.get('userId');
+        if (userIdCookie !== undefined) {
+            return (
+                <SwiperSlide>
+                    <a href="/">
+                        <img style={{ maxWidth: '100%', width: '78%' }} alt='show others' src={require(`../pictures/others.png`)} />
+                    </a>
+                </SwiperSlide>
+            )
+        }
     }
 
     showMovies = () => {
@@ -72,19 +90,16 @@ export default class MovieSwiper extends Component {
                 >
                     {
                         this.state.movies.map((movie, i) => {
-                            return <SwiperSlide key={i}>
+                            return (<SwiperSlide key={i}>
                                 <a href="/">
                                     <img style={{ maxWidth: '90%', width: '80%' }} alt={movie.title} src={movie.poster} />
                                     <h3 className="hometitle">{movie.title}</h3>
                                 </a>
                             </SwiperSlide>
+                            )
                         })
                     }
-                    <SwiperSlide>
-                        <a href="/">
-                            <img style={{ maxWidth: '100%', width: '78%' }} alt='show others' src={require(`../pictures/others.png`)} />
-                        </a>
-                    </SwiperSlide>
+                    {this.showOthersPicture()}
                 </Swiper>
             )
         }
@@ -93,7 +108,7 @@ export default class MovieSwiper extends Component {
     setTitle = () => {
         switch (this.props.orderSwiper) {
             case 'recent':
-                return (<h2 className="panel">Recently added</h2>)
+                return (<h2 className="panel">Recently released</h2>)
             case 'favorites':
                 return (<h2 className="panel">Favorite movies</h2>)
             default:

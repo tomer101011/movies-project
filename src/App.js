@@ -9,17 +9,11 @@ import *  as ROUTES from './constants/routes.js';
 
 export default class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      render: ''
-    }
-  }
-
   render() {
     return (
       <div className="App">
-        <NavBar renderAgain={() => this.setState({ render: 'done' })} />
+        
+        <NavBar />
 
         <Router>
           <Switch>
