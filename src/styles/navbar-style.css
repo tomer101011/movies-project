@@ -145,7 +145,7 @@ body {
 
 .navbar .dropdown-menu.form-wrapper a {
     color: #33cabb;
-    padding: 0 !important;
+    padding: 0;
 }
 
 .navbar .dropdown-menu.form-wrapper a:hover {
@@ -160,11 +160,26 @@ body {
 
 .fav-style {
     margin-bottom: 10px;
+    color:white !important;
+    border-radius: 4px !important;
+    text-decoration: none !important;
     background-color: #60a3bc !important;
 }
 
 .fav-style:hover {
     background-color: #5a98af !important;
+}
+
+.add-movie-style {
+    margin-bottom: 10px;
+    color: white !important;
+    border-radius: 4px !important;
+    text-decoration: none !important;
+    background-color: #f1b024 !important;
+}
+
+.add-movie-style:hover {
+    background-color: #eba31d !important;
 }
 
 .logout-text {
@@ -175,7 +190,7 @@ body {
     color: #777 !important;
 }
 
-.logout-text:hover{
+.logout-text:hover {
     color: #333 !important;
 }
 

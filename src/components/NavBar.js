@@ -3,6 +3,8 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 
 import '../styles/navbar-style.css';
+import *  as ROUTES from '../constants/routes';
+
 
 export default class NavBar extends Component {
 
@@ -11,6 +13,7 @@ export default class NavBar extends Component {
         this.state = {
             userName: '',
             password: '',
+            isManager: false,
             newUserName: '',
             newPassword: '',
             confirmPassword: '',
@@ -30,7 +33,6 @@ export default class NavBar extends Component {
 
 
     login = () => {
-
         if (this.state.userName === '' || this.state.password === '')
             alert('User name or password can\'t be empty');
         else {
@@ -53,7 +55,6 @@ export default class NavBar extends Component {
                             sameSite: true
                         }
                         cookie.set('userId', result.data.userId, options);
-                        this.setState({ loggedUserName: result.data.userName });
                         window.location.reload(false);
                     }
                 })
@@ -80,7 +81,7 @@ export default class NavBar extends Component {
                 .then(result => {
                     if (result.data === 'user name taken')
                         alert('User name already taken');
-                        
+
                     else {
                         const cookie = new Cookies();
                         const options = {
@@ -90,7 +91,6 @@ export default class NavBar extends Component {
                             sameSite: true
                         }
                         cookie.set('userId', result.data.userId, options);
-                        this.setState({ loggedUserName: result.data.userName });
                         window.location.reload(false);
                     }
                 })
@@ -121,12 +121,18 @@ export default class NavBar extends Component {
                         console.log('not found');
 
                     else
-                        this.setState({ loggedUserName: result.data });
+                        this.setState({ loggedUserName: result.data.userName, isManager: result.data.isManager });
                 })
                 .catch(err => {
                     console.log(err);
                 })
         }
+    }
+    addMovieButton = () => {
+        if (this.state.isManager)
+            return (
+                <a href={`#${ROUTES.ADD_MOVIE}`} className="add-movie-style">Add a New Movie</a>
+            );
     }
 
     loadLogButtons = () => {
@@ -137,8 +143,9 @@ export default class NavBar extends Component {
                         <a href="/#" data-toggle="dropdown" className="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Welcome {this.state.loggedUserName}</a>
                         <ul className="dropdown-menu form-wrapper">
                             <li className="center-li">
-                                <input type="button" className="fav-style btn btn-primary btn-block" value="Watch favorites" />
-                                <button onClick={() => this.logOut()} className="logout-text">Log out</button>
+                                <a href={`#${ROUTES.ALL_MOVIES}`} className="fav-style">See All Movies</a>
+                                {this.addMovieButton()}
+                                <button onClick={() => this.logOut()} className="logout-text">Log Out</button>
                             </li>
                         </ul>
                     </li>
@@ -164,7 +171,7 @@ export default class NavBar extends Component {
                         </ul>
                     </li>
                     <li>
-                        <a href="/#" data-toggle="dropdown" className="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Sign up</a>
+                        <a href="/#" data-toggle="dropdown" className="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Sign Up</a>
                         <ul className="dropdown-menu form-wrapper">
                             <li>
                                 <p className="hint-text">Fill in this form to create your account!</p>

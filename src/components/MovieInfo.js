@@ -38,11 +38,9 @@ export default class MovieInfo extends Component {
                 userId: userId,
                 movieId: movieId
             }
-
             const url = `http://localhost:9000/favorites/usermovie`;
             axios.post(url, data)
                 .then(res => {
-                    // res.data[0]
                     if (res.data.length !== 0)
                         this.setState({ favorite: true })
                 })
@@ -78,22 +76,35 @@ export default class MovieInfo extends Component {
     }
 
     clickFavButton = () => {
-        console.log('here')
         const cookie = new Cookies();
-        const url = 'http://localhost:9000/favorites/insert';
         const data = {
             userId: cookie.get('userId'),
             movieId: cookie.get('movieId')
         }
-
-        axios.post(url, data)
-            .then(res => {
-                document.getElementById('fav').style.backgroundColor = "#0fbb65";
-                document.getElementById('fav').innerHTML = "Added!";
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        if (!this.state.favorite) {
+            const url = 'http://localhost:9000/favorites/insert';
+            axios.post(url, data)
+                .then(res => {
+                    document.getElementById('fav').style.backgroundColor = "#0fbb65";
+                    document.getElementById('fav').innerHTML = "Added!";
+                    this.setState({ favorite: true });
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        else {
+            const url = 'http://localhost:9000/favorites/delete';
+            axios.post(url, data)
+                .then(res => {
+                    document.getElementById('fav').style.backgroundColor = "#4e9af1";
+                    document.getElementById('fav').innerHTML = "Add to favorites";
+                    this.setState({ favorite: false });
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     }
 
     render() {
@@ -113,13 +124,13 @@ export default class MovieInfo extends Component {
                             <ul>
                                 <li>{this.state.movieInfo.title}</li>
                                 <li>{this.state.movieInfo.plot}</li>
+                                {this.addFavButon()}
                                 <li className="margin-genre"><p><span>Genres: </span>{this.state.movieInfo.genre}</p></li>
                                 <li><p><span>Director: </span>{this.state.movieInfo.director}</p></li>
                                 <li><p><span>Cast: </span>{this.state.movieInfo.actors}</p></li>
                                 <li><p><span>Released: </span>{this.state.movieInfo.released}</p></li>
                                 <li><p><span>Runtime: </span>{this.state.movieInfo.runtime}</p></li>
                                 <li><p><span>Metascore: </span>{this.state.movieInfo.rating}/100</p></li>
-                                {this.addFavButon()}
                             </ul>
                         </section>
                     </div>

@@ -56,7 +56,7 @@ export default class MovieSwiper extends Component {
         if (userIdCookie !== undefined) {
             return (
                 <SwiperSlide>
-                    <a href="/">
+                    <a href={`#${ROUTES.ALL_MOVIES}`}>
                         <img style={{ maxWidth: '100%', width: '78%' }} alt='show others' src={require(`../pictures/others.png`)} />
                     </a>
                 </SwiperSlide>
