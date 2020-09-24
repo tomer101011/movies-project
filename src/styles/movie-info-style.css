@@ -22,6 +22,7 @@
     margin-left: 2em;
     border: 0.16em solid rgba(255, 255, 255, 0);
     border-radius: 2em;
+    font-weight: bold !important;
     box-sizing: border-box;
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
@@ -108,7 +109,7 @@
     color: #fff;
     padding: 0 0 10px 0;
     line-height: 1.4;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .movie ul li:first-child {
