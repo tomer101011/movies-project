@@ -10,7 +10,8 @@ export default class MovieInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            movieInfo: {}
+            movieInfo: {},
+            favorite: false
         }
     }
 
@@ -30,10 +31,65 @@ export default class MovieInfo extends Component {
                 movieId = cookie.get('movieId');
             }
 
+        let userId = cookie.get('userId');
+        if (userId !== undefined) {
+
+            const data = {
+                userId: userId,
+                movieId: movieId
+            }
+
+            const url = `http://localhost:9000/favorites/usermovie`;
+            axios.post(url, data)
+                .then(res => {
+                    // res.data[0]
+                    if (res.data.length !== 0)
+                        this.setState({ favorite: true })
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
         const url = `http://localhost:9000/movies/info`;
         axios.post(url, { movieId })
             .then(res => {
                 this.setState({ movieInfo: res.data[0] });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    addFavButon = () => {
+        const cookie = new Cookies();
+        const userId = cookie.get('userId');
+        if (userId !== undefined) {
+            if (this.state.favorite)
+                return (
+                    <li><button id="fav" onClick={() => this.clickFavButton()} className="favorite favorite-color">Added!</button></li>
+                )
+            else
+                return (
+                    <li><button id="fav" onClick={() => this.clickFavButton()} className="favorite">Add to favorites</button></li>
+                )
+        }
+
+    }
+
+    clickFavButton = () => {
+        console.log('here')
+        const cookie = new Cookies();
+        const url = 'http://localhost:9000/favorites/insert';
+        const data = {
+            userId: cookie.get('userId'),
+            movieId: cookie.get('movieId')
+        }
+
+        axios.post(url, data)
+            .then(res => {
+                document.getElementById('fav').style.backgroundColor = "#0fbb65";
+                document.getElementById('fav').innerHTML = "Added!";
             })
             .catch(err => {
                 console.log(err);
@@ -63,6 +119,7 @@ export default class MovieInfo extends Component {
                                 <li><p><span>Released: </span>{this.state.movieInfo.released}</p></li>
                                 <li><p><span>Runtime: </span>{this.state.movieInfo.runtime}</p></li>
                                 <li><p><span>Metascore: </span>{this.state.movieInfo.rating}/100</p></li>
+                                {this.addFavButon()}
                             </ul>
                         </section>
                     </div>

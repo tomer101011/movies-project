@@ -112,7 +112,7 @@ export default class MovieSwiper extends Component {
     setTitle = () => {
         switch (this.props.orderSwiper) {
             case 'recent':
-                return (<h2 className="panel">Recently released</h2>)
+                return (<h2 className="panel">Released recently</h2>)
             case 'favorites':
                 return (<h2 className="panel">Favorite movies</h2>)
             default:
