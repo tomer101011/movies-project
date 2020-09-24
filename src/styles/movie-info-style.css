@@ -100,6 +100,7 @@
     float: left;
     margin: 0 20px;
     width: calc(100% - 590px);
+    padding:0;
 }
 
 .movie ul li {
@@ -129,7 +130,19 @@
 
 @media all and (max-width: 1024px) {
     .movie ul {
-        width: calc(100% - 290px);
+        width: 60%;
+    }
+}
+
+@media all and (max-width: 823px) {
+    .movie ul {
+        width: 50%;
+    }
+}
+
+@media all and (max-width: 768px) {
+    .movie ul {
+        width: 40%;
     }
 }
 
