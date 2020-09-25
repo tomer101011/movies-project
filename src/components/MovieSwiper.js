@@ -114,8 +114,12 @@ export default class MovieSwiper extends Component {
         switch (this.props.orderSwiper) {
             case 'recent':
                 return (<h2 className="panel">Released recently</h2>)
+
             case 'favorites':
-                return (<h2 className="panel">Favorite movies</h2>)
+                if (this.state.movies.length !== 0)
+                    return (<h2 className="panel">Favorite movies</h2>)
+                break;
+                
             default:
                 return (<h2 className="panel">Top rated</h2>)
         }
