@@ -115,7 +115,7 @@ export default class MovieInfo extends Component {
                     <div className="single">
 
                         <section className="trailer">
-                            <div className="trailer_frame">
+                            <div className="trailer-frame">
                                 <iframe title={this.state.movieInfo.poster} width="560" height="349" src={this.state.movieInfo.trailer} frameBorder="0" allowFullScreen />
                             </div>
                         </section>

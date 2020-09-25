@@ -5,7 +5,7 @@ import Cookies from 'universal-cookie';
 import '../styles/navbar-style.css';
 
 import *  as ROUTES from '../constants/routes';
-import {server_path} from '../constants/server.js';
+import { server_path } from '../constants/server.js';
 
 export default class NavBar extends Component {
 
