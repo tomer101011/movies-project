@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import SwiperCore, { Pagination, Autoplay, EffectFade } from 'swiper';
 import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import {server_path} from '../constants/server.js';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
@@ -21,7 +22,7 @@ export default class HomeSlider extends Component {
     }
 
     componentDidMount() {
-        const url = 'http://localhost:9000/posters';
+        const url = `${server_path}/posters`;
 
         axios.get(url)
             .then(res => {

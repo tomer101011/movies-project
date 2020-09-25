@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import {server_path} from '../constants/server.js';
 
 import '../styles/movie-info-style.css';
 
@@ -38,7 +39,7 @@ export default class MovieInfo extends Component {
                 userId: userId,
                 movieId: movieId
             }
-            const url = `http://localhost:9000/favorites/usermovie`;
+            const url = `${server_path}/favorites/usermovie`;
             axios.post(url, data)
                 .then(res => {
                     if (res.data.length !== 0)
@@ -49,7 +50,7 @@ export default class MovieInfo extends Component {
                 })
         }
 
-        const url = `http://localhost:9000/movies/info`;
+        const url = `${server_path}/movies/info`;
         axios.post(url, { movieId })
             .then(res => {
                 this.setState({ movieInfo: res.data[0] });
@@ -82,7 +83,7 @@ export default class MovieInfo extends Component {
             movieId: cookie.get('movieId')
         }
         if (!this.state.favorite) {
-            const url = 'http://localhost:9000/favorites/insert';
+            const url = `${server_path}/favorites/insert`;
             axios.post(url, data)
                 .then(res => {
                     document.getElementById('fav').style.backgroundColor = "#0fbb65";
@@ -94,7 +95,7 @@ export default class MovieInfo extends Component {
                 })
         }
         else {
-            const url = 'http://localhost:9000/favorites/delete';
+            const url = `${server_path}/favorites/delete`;
             axios.post(url, data)
                 .then(res => {
                     document.getElementById('fav').style.backgroundColor = "#4e9af1";

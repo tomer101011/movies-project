@@ -6,7 +6,8 @@ import SwiperCore, { Navigation } from 'swiper';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
-import *  as ROUTES from '../constants/routes';
+import * as ROUTES from '../constants/routes';
+import { server_path } from '../constants/server.js';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
@@ -29,13 +30,13 @@ export default class MovieSwiper extends Component {
         let url = '';
         switch (this.props.orderSwiper) {
             case 'recent':
-                url = `http://localhost:9000/movies/recent/${this.props.count}`;
+                url = `${server_path}/movies/recent/${this.props.count}`;
                 break;
             case 'favorites':
-                url = `http://localhost:9000/movies/favorites/${this.props.count}`;
+                url = `${server_path}/movies/favorites/${this.props.count}`;
                 break;
             default:
-                url = `http://localhost:9000/movies/topRated/${this.props.count}`;
+                url = `${server_path}/movies/topRated/${this.props.count}`;
         }
 
         const cookie = new Cookies();

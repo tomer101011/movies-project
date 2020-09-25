@@ -3,8 +3,9 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 
 import '../styles/navbar-style.css';
-import *  as ROUTES from '../constants/routes';
 
+import *  as ROUTES from '../constants/routes';
+import {server_path} from '../constants/server.js';
 
 export default class NavBar extends Component {
 
@@ -36,7 +37,7 @@ export default class NavBar extends Component {
         if (this.state.userName === '' || this.state.password === '')
             alert('User name or password can\'t be empty');
         else {
-            const url = 'http://localhost:9000/login';
+            const url = `${server_path}/login`;
             const data = {
                 userName: this.state.userName,
                 password: this.state.password
@@ -72,7 +73,7 @@ export default class NavBar extends Component {
             alert('You need to confirm the password');
 
         else {
-            const url = 'http://localhost:9000/signup';
+            const url = `${server_path}/signup`;
             const data = {
                 newUserName: this.state.newUserName,
                 newPassword: this.state.newPassword
@@ -113,7 +114,7 @@ export default class NavBar extends Component {
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');
         if (userIdCookie !== undefined) {
-            const url = 'http://localhost:9000/login/user';
+            const url = `${server_path}/login/user`;
 
             axios.post(url, { userId: userIdCookie })
                 .then(result => {
