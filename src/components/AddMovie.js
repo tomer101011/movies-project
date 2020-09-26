@@ -13,19 +13,11 @@ export default class AddMovie extends Component {
                 <main className="content">
                     <div className="single">
                         <section className="addBox">
-                            <p className="searchHeader">Add a new movie from IMDb <span id="spanOr">or</span> remove an existing one</p>
+                            <p className="searchHeader">Add a <span id="spanOr">new movie</span> from IMDb</p>
                             <div className="wrap">
                                 <div className="search">
-                                    <input id="searchImdb" type="text" className="searchTerm borderRadius1" placeholder="Search a movie from IMDb" />
-                                    <button type="submit" className="searchButton borderRadius2">
-                                        <i className="fa fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="wrap">
-                                <div className="search">
-                                    <input id="searchRemove" type="text" className="searchTerm borderRadius3" placeholder="Search a movie to remove" />
-                                    <button type="submit" className="searchButton borderRadius4">
+                                    <input id="searchImdb" type="text" className="searchTerm" placeholder="Search a movie" />
+                                    <button type="submit" className="searchButton">
                                         <i className="fa fa-search"></i>
                                     </button>
                                 </div>

@@ -6,6 +6,7 @@ import '../styles/navbar-style.css';
 
 import *  as ROUTES from '../constants/routes';
 import { server_path } from '../constants/server.js';
+import { Link } from 'react-router-dom';
 
 export default class NavBar extends Component {
 
@@ -18,7 +19,7 @@ export default class NavBar extends Component {
             newUserName: '',
             newPassword: '',
             confirmPassword: '',
-            loggedUserName: ''
+            loggedUserName: '',
         }
     }
 
@@ -105,12 +106,14 @@ export default class NavBar extends Component {
     logOut = () => {
         const cookie = new Cookies();
         cookie.remove('userId');
-        this.setState({ loggedUserName: '', userName: '', password: '' });
-        window.location.reload(false);
+        const pageHref = window.location.href;
+        const pageLocation = pageHref.substr(pageHref.indexOf('#') + 1);
+        this.setState({loggedUserName:'logged out'});
+        if (pageLocation === '/')
+            window.location.reload(false);
     }
 
     componentDidMount() {
-
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');
         if (userIdCookie !== undefined) {
@@ -137,7 +140,9 @@ export default class NavBar extends Component {
     }
 
     loadLogButtons = () => {
-        if (this.state.loggedUserName !== '') {
+        const cookie = new Cookies();
+        const userIdCookie = cookie.get('userId');
+        if (userIdCookie !== undefined) {
             return (
                 <ul className="nav navbar-nav navbar-right">
                     <li>
@@ -146,7 +151,9 @@ export default class NavBar extends Component {
                             <li className="center-li">
                                 <a href={`#${ROUTES.ALL_MOVIES}`} className="fav-style">See All Movies</a>
                                 {this.addMovieButton()}
-                                <button onClick={() => this.logOut()} className="logout-text">Log Out</button>
+                                <Link to="/">
+                                    <button onClick={() => this.logOut()} className="logout-text">Log Out</button>
+                                </Link>
                             </li>
                         </ul>
                     </li>
