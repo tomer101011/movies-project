@@ -27,10 +27,7 @@ export default class AddMovie extends Component {
         axios.post(urlOMDb, { search: this.state.searchInput })
             .then(res => {
 
-                if (res.data.trailer.message === "Request failed with status code 403")
-                    alert('Couldn\'t get the movie from IMDb.');
-
-                else if (res.data === 'movie not found')
+                if (res.data === 'movie not found')
                     alert('Movie not found.');
 
                 else
