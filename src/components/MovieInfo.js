@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom';
 
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-import {server_path} from '../constants/server.js';
+import { server_path } from '../constants/server.js';
+import * as ROUTES from '../constants/routes';
 
 import '../styles/movie-info-style.css';
+
 
 export default class MovieInfo extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            movieInfo: {},
-            favorite: false
+            movieInfo: '',
+            favorite: false,
+            changePage: false
         }
     }
 
@@ -53,7 +57,10 @@ export default class MovieInfo extends Component {
         const url = `${server_path}/movies/info`;
         axios.post(url, { movieId })
             .then(res => {
-                this.setState({ movieInfo: res.data[0] });
+                if (res.data[0] === undefined)
+                    this.setState({ changePage: true });
+                else
+                    this.setState({ movieInfo: res.data[0] });
             })
             .catch(err => {
                 console.log(err);
@@ -108,9 +115,15 @@ export default class MovieInfo extends Component {
         }
     }
 
+    doRedirect = () => {
+        if (this.state.changePage)
+            return <Redirect to={ROUTES.HOME} />
+    }
+
     render() {
         return (
             <div className="wrapper">
+                {this.doRedirect()}
                 <main className="content">
                     <div className="single">
 

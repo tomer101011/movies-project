@@ -14,7 +14,7 @@ export default class AddMovie extends Component {
             searchInput: '',
             movieInfo: '',
             trailer: '',
-            movieId: ''
+            movieFromDB: []
         }
     }
 
@@ -34,7 +34,7 @@ export default class AddMovie extends Component {
                     this.setState({
                         movieInfo: res.data.movieInfo,
                         trailer: res.data.trailer,
-                        movieId: res.data.movieId
+                        movieFromDB: res.data.movieId
                     });
             })
             .catch(err => { console.log(err); })
@@ -49,10 +49,43 @@ export default class AddMovie extends Component {
 
     loadAddButton = () => {
         if (this.state.movieInfo !== '') {
-            if (this.state.movieId.length === 0)
-                return <li><button onClick={() => alert()} id="addMovie" className="favorite">Add to the website</button></li>
+            if (this.state.movieFromDB.length === 0)
+                return <li><button onClick={() => this.clickMovieButton()} id="movieButton" className="favorite">Add to the website</button></li>
             else
-                return <li><button onClick={() => alert()} id="removeMovie" className="favorite-color favorite">Remove from the website</button></li>
+                return <li><button onClick={() => this.clickMovieButton()} id="movieButton" className="favorite-color favorite">Remove from the website</button></li>
+        }
+    }
+
+    clickMovieButton = () => {
+        if (this.state.movieFromDB.length === 0) {
+
+            const data = {
+                movieInfo: this.state.movieInfo,
+                trailer: this.state.trailer
+            }
+            const url = `${server_path}/movies/insert`;
+            axios.post(url, data)
+                .then(res => {
+                    document.getElementById('movieButton').style.backgroundColor = "#0fbb65";
+                    document.getElementById('movieButton').innerHTML = "Remove from the website";
+                    this.setState({ movieFromDB: [{ movieId: res.data.insertId }] });
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        else {
+            const data = { movieId: this.state.movieFromDB[0].movieId };
+            const url = `${server_path}/movies/delete`;
+            axios.post(url, data)
+                .then(res => {
+                    document.getElementById('movieButton').style.backgroundColor = "#4e9af1";
+                    document.getElementById('movieButton').innerHTML = "Add to the website";
+                    this.setState({ movieFromDB: [] });
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         }
     }
 
