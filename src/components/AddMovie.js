@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import axios from 'axios';
 import { server_path } from '../constants/server.js';
+import LoadingSpinner from './LoadingSpinner.js';
 
 import '../styles/movie-info-style.css';
 import '../styles/add-movie-style.css';
@@ -14,7 +15,9 @@ export default class AddMovie extends Component {
             searchInput: '',
             movieInfo: '',
             trailer: '',
-            movieFromDB: []
+            movieFromDB: [],
+            loading: false,
+            showSections: false
         }
     }
 
@@ -23,21 +26,30 @@ export default class AddMovie extends Component {
     }
 
     searchOMDb = () => {
-        const urlOMDb = `${server_path}/omdb`;
-        axios.post(urlOMDb, { search: this.state.searchInput })
-            .then(res => {
+        this.setState({ loading: true }, () => {
 
-                if (res.data === 'movie not found')
-                    alert('Movie not found.');
+            const urlOMDb = `${server_path}/omdb`;
+            axios.post(urlOMDb, { search: this.state.searchInput })
+                .then(res => {
 
-                else
-                    this.setState({
-                        movieInfo: res.data.movieInfo,
-                        trailer: res.data.trailer,
-                        movieFromDB: res.data.movieId
-                    });
-            })
-            .catch(err => { console.log(err); })
+                    this.setState({ loading: false });
+
+                    if (res.data === 'movie not found') {
+                        if (this.state.movieInfo === '')
+                            this.setState({ showSections: false })
+                        alert('Movie not found.');
+                    }
+
+                    else
+                        this.setState({
+                            showSections: true,
+                            movieInfo: res.data.movieInfo,
+                            trailer: res.data.trailer,
+                            movieFromDB: res.data.movieId
+                        });
+                })
+                .catch(err => { console.log(err); })
+        });
     }
 
     loadRatingText = () => {
@@ -89,13 +101,49 @@ export default class AddMovie extends Component {
         }
     }
 
+    loadSpinner = () => {
+        if (this.state.loading)
+            return <LoadingSpinner />
+    }
+
+    loadTrailerSection = () => {
+        if (this.state.showSections)
+            return (
+                <section className="trailer">
+                    <div className="trailer-frame">
+                        <iframe title={this.state.movieInfo.title} width="560" height="349" src={this.state.trailer} frameBorder="0" allowFullScreen />
+                    </div>
+                </section>
+            );
+    }
+
+    loadMovieSection = () => {
+        if (this.state.showSections)
+            return (
+                <section className="movie">
+                    <img alt='' src={this.state.movieInfo.poster} />
+                    <ul>
+                        <li>{this.state.movieInfo.title}</li>
+                        <li>{this.state.movieInfo.plot}</li>
+                        {this.loadAddButton()}
+                        <li className="margin-genre"><p><span>Genres: </span>{this.state.movieInfo.genre}</p></li>
+                        <li><p><span>Director: </span>{this.state.movieInfo.director}</p></li>
+                        <li><p><span>Cast: </span>{this.state.movieInfo.actors}</p></li>
+                        <li><p><span>Released: </span>{this.state.movieInfo.released}</p></li>
+                        <li><p><span>Runtime: </span>{this.state.movieInfo.runtime}</p></li>
+                        {this.loadRatingText()}
+                    </ul>
+                </section>
+            );
+    }
+
     render() {
         return (
             <div className="wrapper">
                 <main className="content">
                     <div className="single">
                         <section className="addBox">
-                            <p className="searchHeader">Add a <span id="spanWord">new movie</span> from IMDb</p>
+                            <p className="searchHeader">Add a New Movie From IMDb <span id="spanWord">Or</span> Remove an existing one</p>
                             <div className="wrap">
                                 <div className="search">
                                     <input id="searchImdb" onChange={this.setSearchInput} type="text" className="searchTerm" placeholder="Search a movie" />
@@ -106,26 +154,10 @@ export default class AddMovie extends Component {
                             </div>
                         </section>
 
-                        <section className="trailer">
-                            <div className="trailer-frame">
-                                <iframe title={this.state.movieInfo.poster} width="560" height="349" src={this.state.trailer} frameBorder="0" allowFullScreen />
-                            </div>
-                        </section>
+                        {this.loadSpinner()}
+                        {this.loadTrailerSection()}
+                        {this.loadMovieSection()}
 
-                        <section className="movie">
-                            <img alt='' src={this.state.movieInfo.poster} />
-                            <ul>
-                                <li>{this.state.movieInfo.title}</li>
-                                <li>{this.state.movieInfo.plot}</li>
-                                {this.loadAddButton()}
-                                <li className="margin-genre"><p><span>Genres: </span>{this.state.movieInfo.genre}</p></li>
-                                <li><p><span>Director: </span>{this.state.movieInfo.director}</p></li>
-                                <li><p><span>Cast: </span>{this.state.movieInfo.actors}</p></li>
-                                <li><p><span>Released: </span>{this.state.movieInfo.released}</p></li>
-                                <li><p><span>Runtime: </span>{this.state.movieInfo.runtime}</p></li>
-                                {this.loadRatingText()}
-                            </ul>
-                        </section>
                     </div>
                 </main>
             </div>

@@ -135,7 +135,7 @@ export default class NavBar extends Component {
     addMovieButton = () => {
         if (this.state.isManager)
             return (
-                <a href={`#${ROUTES.ADD_MOVIE}`} className="add-movie-style">Add a New Movie</a>
+                <a href={`#${ROUTES.ADD_MOVIE}`} className="add-movie-style">Add/Remove a Movie</a>
             );
     }
 
