@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom';
 
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import { server_path } from '../constants/server.js';
 import LoadingSpinner from './LoadingSpinner.js';
+import * as ROUTES from '../constants/routes';
 
 import '../styles/movie-info-style.css';
 import '../styles/add-movie-style.css';
@@ -17,7 +20,8 @@ export default class AddMovie extends Component {
             trailer: '',
             movieFromDB: [],
             loading: false,
-            showSections: false
+            showSections: false,
+            changePage: false
         }
     }
 
@@ -137,9 +141,28 @@ export default class AddMovie extends Component {
             );
     }
 
+    doRedirect = () => {
+        if (this.state.changePage)
+            return <Redirect to={ROUTES.HOME} />
+    }
+
+    componentDidMount() {
+        const cookie = new Cookies();
+        let userId = cookie.get('userId');
+
+        const url = `${server_path}/login/user`;
+        axios.post(url, { userId: userId })
+            .then(res => {
+                if (!res.data.isManager)
+                    this.setState({ changePage: true });
+            })
+            .catch(err => { console.log(err); })
+    }
+
     render() {
         return (
             <div className="wrapper">
+                {this.doRedirect()}
                 <main className="content">
                     <div className="single">
                         <section className="addBox">
