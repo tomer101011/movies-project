@@ -1,0 +1,126 @@
+.content {
+    float: left;
+    width: 100%;
+}
+
+.centered {
+    max-width: 1024px;
+    width: 100%;
+    margin: 70px auto;
+}
+
+.centered h3 {
+    float: left;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    color: #fff;
+    width: calc(100% - 20px);
+    margin-left: 2%;
+}
+
+.movies {
+    float: left;
+    width: 100%;
+    margin-left: 4%;
+    margin-bottom: 20px;
+}
+
+.mov {
+    float: left;
+    width: calc(25% - 20px);
+    padding: 10px 10px 0 10px;
+    position: relative;
+}
+
+.mov img {
+    transition: opacity 0.3s ease;
+    height: 300px;
+    width: 200px;
+}
+
+.mov img {
+    max-width: 100%;
+}
+
+.mov:hover img {
+    opacity: 0.7;
+}
+
+.movietitle {
+    position: absolute;
+    line-height: 1.3;
+    bottom: 0;
+    right: 10px;
+    left: 10px;
+    padding: 2px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 14px;
+    margin-right: 8px !important;
+    margin-left: 8px !important;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 10%;
+}
+
+.mov h2 {
+    margin: 0;
+}
+
+@media all and (max-width: 820px) {
+
+    .movies {
+        margin-left: 10%;
+        width: 90%
+    }
+
+    .mov img {
+        transition: opacity 0.3s ease;
+        height: 200px;
+        width: 140px;
+    }
+
+    .movietitle {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+}
+
+@media all and (max-width: 786px) {
+    .mov {
+        width: calc(25% - 20px);
+    }
+
+    .movies {
+        margin-left: 7%;
+    }
+}
+
+@media all and (max-width: 540px) {
+    .mov {
+        width: calc(33.3% - 10px);
+        padding: 10px 5px 0 5px;
+    }
+
+    .movietitle {
+        margin-right: -5px !important;
+        margin-left: -5px !important;
+    }
+
+    .movies {
+        margin-left: 8%;
+    }
+
+    .mov img {
+        height: 150px;
+    }
+}
+
+@media all and (max-width: 375px) {
+    .movies {
+        margin-left: 8%;
+    }
+}
