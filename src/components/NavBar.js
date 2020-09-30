@@ -105,10 +105,10 @@ export default class NavBar extends Component {
 
     logOut = () => {
         const cookie = new Cookies();
-        cookie.remove('userId');
+        cookie.remove('userId', { path: '/' });
         const pageHref = window.location.href;
         const pageLocation = pageHref.substr(pageHref.indexOf('#') + 1);
-        this.setState({loggedUserName:'logged out'});
+        this.setState({ loggedUserName: 'logged out' });
         if (pageLocation === '/')
             window.location.reload(false);
     }
