@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+
+/* eslint-disable */
+import zenscroll from 'zenscroll';
+/* eslint-enabled */
 
 import '../styles/all-movies-style.css'
 
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import { server_path } from '../constants/server.js';
 import * as ROUTES from '../constants/routes';
 
@@ -14,26 +19,57 @@ export default class AllMovies extends Component {
         super(props);
         this.state = {
             searchTitle: 'Released recently',
-            movies: []
+            movies: [],
+            changePage: false
         }
     }
 
     componentDidMount() {
-        const url = `${server_path}/movies/recent/-1`
-        axios.post(url, {})
-            .then(res => {
-                this.setState({ movies: res.data });
-            })
-            .catch(err => { console.log(err); })
+        const cookie = new Cookies();
+        let userId = cookie.get('userId');
+
+        if (userId === undefined)
+            this.setState({ changePage: true });
+
+        else {
+            this.scroll();
+
+            const url = `${server_path}/movies/recent/-1`
+            axios.post(url, {})
+                .then(res => {
+                    this.setState({ movies: res.data });
+                })
+                .catch(err => { console.log(err); })
+        }
+    }
+
+    scroll = () => {
+        window.onscroll = () => {
+            let currentScrollPos = window.pageYOffset;
+            if (document.getElementById("toTop") !== null) {
+                if (currentScrollPos === 0) {
+                    document.getElementById("toTop").style.display = "none";
+                }
+                else
+                    document.getElementById("toTop").style.display = "block";
+            }
+        }
+
     }
 
     goTop = () => {
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    doRedirect = () => {
+        if (this.state.changePage)
+            return <Redirect to={ROUTES.HOME} />
     }
 
     render() {
         return (
             <main className="content">
+                {this.doRedirect()}
                 <section className="centered">
                     <h3>{this.state.searchTitle}</h3>
                     <div className="movies">
@@ -51,7 +87,7 @@ export default class AllMovies extends Component {
                         }
                     </div>
                 </section>
-                <button onClick={() => this.goTop()} className="btn btn-light btn-lg back-to-top">
+                <button id="toTop" onClick={() => this.goTop()} className="btn btn-light btn-lg back-to-top">
                     <i className="fa fa-chevron-up"></i>
                 </button>
             </main>

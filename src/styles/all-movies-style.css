@@ -36,9 +36,6 @@
     transition: opacity 0.3s ease;
     height: 300px;
     width: 200px;
-}
-
-.mov img {
     max-width: 100%;
 }
 
@@ -62,15 +59,24 @@
 
 .back-to-top {
     position: fixed;
-    bottom: 25px;
-    right: 10%;
+    bottom: 5%;
+    right: 15%;
+    display: none;
+    background-color: #389ac7;
+    color: white;
+    transition: background-color 0.5s ease;
+}
+
+.back-to-top:hover {
+    background-color: #2a7090;
+    color: white;
 }
 
 .mov h2 {
     margin: 0;
 }
 
-@media all and (max-width: 820px) {
+@media all and (max-width: 825px) {
 
     .movies {
         margin-left: 10%;
@@ -95,7 +101,7 @@
     }
 
     .movies {
-        margin-left: 7%;
+        margin-left: 9%;
     }
 }
 

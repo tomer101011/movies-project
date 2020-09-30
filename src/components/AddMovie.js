@@ -141,11 +141,6 @@ export default class AddMovie extends Component {
             );
     }
 
-    doRedirect = () => {
-        if (this.state.changePage)
-            return <Redirect to={ROUTES.HOME} />
-    }
-
     componentDidMount() {
         const cookie = new Cookies();
         let userId = cookie.get('userId');
@@ -157,6 +152,11 @@ export default class AddMovie extends Component {
                     this.setState({ changePage: true });
             })
             .catch(err => { console.log(err); })
+    }
+
+    doRedirect = () => {
+        if (this.state.changePage)
+            return <Redirect to={ROUTES.HOME} />
     }
 
     render() {

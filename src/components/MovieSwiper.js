@@ -97,7 +97,7 @@ export default class MovieSwiper extends Component {
                             return (
                                 <SwiperSlide key={i}>
                                     <Link to={{ pathname: ROUTES.MOVIE, state: { movieId: movie.movieId } }}>
-                                        <img style={{ maxWidth: '90%', width: '80%' }} alt={movie.title} src={movie.poster} />
+                                        <img className="imgSwiper" style={{ maxWidth: '90%', width: '80%' }} alt={movie.title} src={movie.poster} />
                                         <h3 className="hometitle">{movie.title}</h3>
                                     </Link>
                                 </SwiperSlide>
