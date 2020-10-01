@@ -26,6 +26,46 @@
     margin-bottom: 20px;
 }
 
+.styleChoices {
+    border: none;
+    padding: 5px;
+    color: white;
+    font-size: 20px;
+    border-left: 1px solid rgba(128, 128, 128, 0.787);
+    transition: background-color 0.5s ease;
+}
+
+.marginButtons {
+    margin-bottom: 10px;
+}
+
+.releasedButton {
+    border: none;
+    border-radius: 4px 0 0 4px;
+    background-color: rgb(65, 161, 216);
+}
+
+.releasedButton:hover {
+    background-color: rgb(56, 137, 184);
+}
+
+.favoriteButton {
+    background-color: rgb(128, 200, 152);
+}
+
+.favoriteButton:hover {
+    background-color: rgb(116, 175, 135);
+}
+
+.topRatedButton {
+    border-radius: 0 4px 4px 0;
+    background-color: rgb(251, 196, 78);
+}
+
+.topRatedButton:hover {
+    background-color: rgb(228, 178, 70);
+}
+
 .mov {
     float: left;
     width: calc(25% - 20px);
@@ -40,7 +80,7 @@
     max-width: 100%;
 }
 
-.mov:hover img {
+.mov img:hover {
     opacity: 0.7;
 }
 
@@ -129,5 +169,19 @@
 @media all and (max-width: 375px) {
     .movies {
         margin-left: 8%;
+    }
+
+    .styleChoices {
+        font-size: 15px;
+    }
+}
+
+@media all and (max-width: 280px) {
+    .movies {
+        margin-left: 8%;
+    }
+
+    .styleChoices {
+        font-size: 12px;
     }
 }

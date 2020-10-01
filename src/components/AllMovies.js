@@ -7,6 +7,7 @@ import zenscroll from 'zenscroll';
 
 import '../styles/all-movies-style.css'
 
+
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { server_path } from '../constants/server.js';
@@ -88,9 +89,54 @@ export default class AllMovies extends Component {
         cookie.set('movieId', movieId, options);
     }
 
+    loadMovies = (searchOrder) => {
+        const cookie = new Cookies();
+        const userId = cookie.get('userId');
+        let url = '';
+        let searchTitle = '';
+
+        switch (searchOrder) {
+            case 'recent':
+                url = `${server_path}/movies/recent/all`;
+                searchTitle = 'Released recently';
+                break;
+            case 'favorites':
+                url = `${server_path}/movies/favorites/all`;
+                searchTitle = 'Favorite movies';
+                break;
+            default:
+                url = `${server_path}/movies/topRated/all`;
+                searchTitle = 'Top rated';
+        }
+
+        const options = {
+            path: '/',
+            maxAge: 120 * 60 * 1000,
+            httponly: true,
+            sameSite: true
+        }
+        cookie.set('show', searchOrder, options);
+
+        axios.post(url, { userId })
+            .then(res => {
+                this.setState({ movies: res.data, searchTitle: searchTitle });
+            })
+            .catch(err => { console.log(err); })
+    }
+
     doRedirect = () => {
         if (this.state.changePage)
             return <Redirect to={ROUTES.HOME} />
+    }
+
+    loadSearchButons = () => {
+        return (
+            <div className="marginButtons">
+                <button onClick={() => this.loadMovies('recent')} className="styleChoices releasedButton">Released recently</button>
+                <button onClick={() => this.loadMovies('favorites')} className="styleChoices favoriteButton">Favorites</button>
+                <button onClick={() => this.loadMovies('top-rated')} className="styleChoices topRatedButton">Top rated</button>
+            </div>
+        );
     }
 
     render() {
@@ -99,6 +145,7 @@ export default class AllMovies extends Component {
                 {this.doRedirect()}
                 <section className="centered">
                     <h3>{this.state.searchTitle}</h3>
+                    {this.loadSearchButons()}
                     <div className="movies">
                         {
                             this.state.movies.map((movie, i) => {
