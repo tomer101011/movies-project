@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom';
 
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import { server_path } from '../constants/server.js';
-import * as ROUTES from '../constants/routes';
 
 import '../styles/movie-info-style.css';
 
@@ -15,28 +13,15 @@ export default class MovieInfo extends Component {
         super(props);
         this.state = {
             movieInfo: '',
-            favorite: false,
-            changePage: false
+            favorite: false
         }
     }
 
     componentDidMount() {
         const cookie = new Cookies();
         let movieId = cookie.get('movieId');
-
-        if (this.props.location.state)
-            if (movieId === undefined || movieId !== this.props.location.state.movieId) {
-                const options = {
-                    path: '/',
-                    maxAge: 120 * 60 * 1000,
-                    httponly: true,
-                    sameSite: true
-                }
-                cookie.set('movieId', this.props.location.state.movieId, options);
-                movieId = cookie.get('movieId');
-            }
-
         let userId = cookie.get('userId');
+
         if (userId !== undefined) {
 
             const data = {
@@ -57,10 +42,14 @@ export default class MovieInfo extends Component {
         const url = `${server_path}/movies/info`;
         axios.post(url, { movieId })
             .then(res => {
-                if (res.data[0] === undefined)
-                    this.setState({ changePage: true });
-                else
-                    this.setState({ movieInfo: res.data[0] });
+
+                const movie = res.data[0];
+                const placeholder = "https://www.genius100visions.com/wp-content/uploads/2017/09/placeholder-vertical.jpg";
+                if (movie.poster === placeholder)
+                    document.getElementById('poster').style.width = '30%';
+
+                this.setState({ movieInfo: movie });
+
             })
             .catch(err => {
                 console.log(err);
@@ -115,15 +104,9 @@ export default class MovieInfo extends Component {
         }
     }
 
-    doRedirect = () => {
-        if (this.state.changePage)
-            return <Redirect to={ROUTES.HOME} />
-    }
-
     render() {
         return (
             <div className="wrapper">
-                {this.doRedirect()}
                 <main className="content">
                     <div className="single">
 
@@ -134,7 +117,7 @@ export default class MovieInfo extends Component {
                         </section>
 
                         <section className="movie">
-                            <img alt='' src={this.state.movieInfo.poster} />
+                            <img id="poster" alt='' src={this.state.movieInfo.poster} />
                             <ul>
                                 <li>{this.state.movieInfo.title}</li>
                                 <li>{this.state.movieInfo.plot}</li>

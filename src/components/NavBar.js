@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
@@ -6,7 +7,7 @@ import '../styles/navbar-style.css';
 
 import *  as ROUTES from '../constants/routes';
 import { server_path } from '../constants/server.js';
-import { Link } from 'react-router-dom';
+
 
 export default class NavBar extends Component {
 
@@ -109,7 +110,7 @@ export default class NavBar extends Component {
         const pageHref = window.location.href;
         const pageLocation = pageHref.substr(pageHref.indexOf('#') + 1);
         this.setState({ loggedUserName: 'logged out' });
-        if (pageLocation === '/')
+        if (pageLocation === ROUTES.HOME)
             window.location.reload(false);
     }
 
@@ -139,6 +140,24 @@ export default class NavBar extends Component {
             );
     }
 
+    addCookieSearch = () => {
+        const cookie = new Cookies();
+        const options = {
+            path: '/',
+            maxAge: 120 * 60 * 1000,
+            httponly: true,
+            sameSite: true
+        }
+        const searchOrder = 'recent';
+        cookie.set('show', searchOrder, options);
+
+        const pageHref = window.location.href;
+        const pageLocation = pageHref.substr(pageHref.indexOf('#') + 1);
+        if (pageLocation === ROUTES.ALL_MOVIES)
+            window.location.reload(false);
+
+    }
+
     loadLogButtons = () => {
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');
@@ -149,7 +168,7 @@ export default class NavBar extends Component {
                         <a href="/#" data-toggle="dropdown" className="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Welcome {this.state.loggedUserName}</a>
                         <ul className="dropdown-menu form-wrapper">
                             <li className="center-li">
-                                <a href={`#${ROUTES.ALL_MOVIES}`} className="fav-style">See All Movies</a>
+                                <a onClick={() => { this.addCookieSearch() }} href={`#${ROUTES.ALL_MOVIES}`} className="fav-style">See All Movies</a>
                                 {this.addMovieButton()}
                                 <Link to="/">
                                     <button onClick={() => this.logOut()} className="logout-text">Log Out</button>

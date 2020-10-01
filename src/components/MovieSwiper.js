@@ -51,18 +51,39 @@ export default class MovieSwiper extends Component {
     }
 
     showOthersPicture = () => {
-
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');
         if (userIdCookie !== undefined) {
             return (
                 <SwiperSlide>
                     <a href={`#${ROUTES.ALL_MOVIES}`}>
-                        <img style={{ maxWidth: '100%', width: '78%' }} alt='show others' src={require(`../pictures/others.png`)} />
+                        <img onClick={() => this.addCookieSearch()} style={{ maxWidth: '100%', width: '78%' }} alt='show others' src={require(`../pictures/others.png`)} />
                     </a>
                 </SwiperSlide>
             )
         }
+    }
+
+    addCookieSearch = () => {
+        const cookie = new Cookies();
+        const options = {
+            path: '/',
+            maxAge: 120 * 60 * 1000,
+            httponly: true,
+            sameSite: true
+        }
+        cookie.set('show', this.props.orderSwiper, options);
+    }
+
+    addCookieMovieId = (movieId) => {
+        const cookie = new Cookies();
+        const options = {
+            path: '/',
+            maxAge: 120 * 60 * 1000,
+            httponly: true,
+            sameSite: true
+        }
+        cookie.set('movieId', movieId, options);
     }
 
     showMovies = () => {
@@ -96,8 +117,8 @@ export default class MovieSwiper extends Component {
                         this.state.movies.map((movie, i) => {
                             return (
                                 <SwiperSlide key={i}>
-                                    <Link to={{ pathname: ROUTES.MOVIE, state: { movieId: movie.movieId } }}>
-                                        <img className="imgSwiper" style={{ maxWidth: '90%', width: '80%' }} alt={movie.title} src={movie.poster} />
+                                    <Link to={{ pathname: ROUTES.MOVIE }}>
+                                        <img onClick={() => this.addCookieMovieId(movie.movieId)} className="imgSwiper" style={{ maxWidth: '90%', width: '80%' }} alt={movie.title} src={movie.poster} />
                                         <h3 className="hometitle">{movie.title}</h3>
                                     </Link>
                                 </SwiperSlide>
@@ -119,7 +140,7 @@ export default class MovieSwiper extends Component {
                 if (this.state.movies.length !== 0)
                     return (<h2 className="panel">Favorite movies</h2>)
                 break;
-                
+
             default:
                 return (<h2 className="panel">Top rated</h2>)
         }

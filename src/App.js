@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
-/* eslint-disable */
-import zenscroll from 'zenscroll';
-/* eslint-enabled */
-
 import './App.css';
 
 import HomePage from './components/HomePage.js';

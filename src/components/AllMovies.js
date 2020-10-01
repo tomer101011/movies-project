@@ -18,7 +18,7 @@ export default class AllMovies extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchTitle: 'Released recently',
+            searchTitle: '',
             movies: [],
             changePage: false
         }
@@ -26,18 +26,34 @@ export default class AllMovies extends Component {
 
     componentDidMount() {
         const cookie = new Cookies();
-        let userId = cookie.get('userId');
+        const userId = cookie.get('userId');
 
         if (userId === undefined)
             this.setState({ changePage: true });
 
         else {
+            const show = cookie.get('show');
             this.scroll();
 
-            const url = `${server_path}/movies/recent/-1`
-            axios.post(url, {})
+            let url = '';
+            let searchTitle = '';
+            switch (show) {
+                case 'recent':
+                    url = `${server_path}/movies/recent/all`;
+                    searchTitle = 'Released recently';
+                    break;
+                case 'favorites':
+                    url = `${server_path}/movies/favorites/all`;
+                    searchTitle = 'Favorite movies';
+                    break;
+                default:
+                    url = `${server_path}/movies/topRated/all`;
+                    searchTitle = 'Top rated';
+            }
+
+            axios.post(url, { userId })
                 .then(res => {
-                    this.setState({ movies: res.data });
+                    this.setState({ movies: res.data, searchTitle: searchTitle });
                 })
                 .catch(err => { console.log(err); })
         }
@@ -61,6 +77,17 @@ export default class AllMovies extends Component {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    addCookieMovieId = (movieId) => {
+        const cookie = new Cookies();
+        const options = {
+            path: '/',
+            maxAge: 120 * 60 * 1000,
+            httponly: true,
+            sameSite: true
+        }
+        cookie.set('movieId', movieId, options);
+    }
+
     doRedirect = () => {
         if (this.state.changePage)
             return <Redirect to={ROUTES.HOME} />
@@ -77,8 +104,8 @@ export default class AllMovies extends Component {
                             this.state.movies.map((movie, i) => {
                                 return (
                                     <div key={i} className="mov">
-                                        <Link to={{ pathname: ROUTES.MOVIE, state: { movieId: movie.movieId } }}>
-                                            <img alt={movie.title} src={movie.poster} />
+                                        <Link to={{ pathname: ROUTES.MOVIE }}>
+                                            <img onClick={() => this.addCookieMovieId(movie.movieId)} alt={movie.title} src={movie.poster} />
                                             <h2 className="movietitle">{movie.title}</h2>
                                         </Link>
                                     </div>
