@@ -18,7 +18,7 @@ jobs:
         npm install
         npm run-script build
       env:
-        REACT_APP_SERVER_PATH: ${{ secrets.REACT_APP_SERVER_PATH }}
+        REACT_APP_SERVER: ${{ secrets.REACT_APP_SERVER }}
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
