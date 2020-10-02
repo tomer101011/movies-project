@@ -51,7 +51,6 @@ export default class AllMovies extends Component {
                     url = `${server_path}/movies/topRated/all`;
                     searchTitle = 'Top rated';
             }
-
             axios.post(url, { userId })
                 .then(res => {
                     this.setState({ movies: res.data, searchTitle: searchTitle });
@@ -124,9 +123,30 @@ export default class AllMovies extends Component {
             .catch(err => { console.log(err); })
     }
 
-    doRedirect = () => {
-        if (this.state.changePage)
-            return <Redirect to={ROUTES.HOME} />
+    loadMoviePictures = () => {
+        if (this.state.movies.length !== 0)
+            return (
+                <div className="movies">
+                    {
+                        this.state.movies.map((movie, i) => {
+                            return (
+                                <div key={i} className="mov">
+                                    <Link to={{ pathname: ROUTES.MOVIE }}>
+                                        <img onClick={() => this.addCookieMovieId(movie.movieId)} alt={movie.title} src={movie.poster} />
+                                        <h2 className="movietitle">{movie.title}</h2>
+                                    </Link>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            );
+        else {
+            const picture = require(`../pictures/noFavorites.png`);
+            return (
+                <img className="no-movies-pic" alt="No movies picture" src={picture} />
+            );
+        }
     }
 
     loadSearchButons = () => {
@@ -139,6 +159,11 @@ export default class AllMovies extends Component {
         );
     }
 
+    doRedirect = () => {
+        if (this.state.changePage)
+            return <Redirect to={ROUTES.HOME} />
+    }
+
     render() {
         return (
             <main className="content">
@@ -146,25 +171,12 @@ export default class AllMovies extends Component {
                 <section className="centered">
                     <h3>{this.state.searchTitle}</h3>
                     {this.loadSearchButons()}
-                    <div className="movies">
-                        {
-                            this.state.movies.map((movie, i) => {
-                                return (
-                                    <div key={i} className="mov">
-                                        <Link to={{ pathname: ROUTES.MOVIE }}>
-                                            <img onClick={() => this.addCookieMovieId(movie.movieId)} alt={movie.title} src={movie.poster} />
-                                            <h2 className="movietitle">{movie.title}</h2>
-                                        </Link>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
+                    {this.loadMoviePictures()}
                 </section>
                 <button id="toTop" onClick={() => this.goTop()} className="btn btn-light btn-lg back-to-top">
                     <i className="fa fa-chevron-up"></i>
                 </button>
-            </main>
+            </main >
         );
     }
 }

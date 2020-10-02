@@ -117,6 +117,11 @@
     margin: 0;
 }
 
+.no-movies-pic {
+    width: 30%;
+    /* border-radius: 50%; */
+}
+
 @media all and (max-width: 825px) {
 
     .movies {
