@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 export default class HomePage extends Component {
 
     loadPage = () => {
+        console.log(process.env.REACT_APP_TEMP)
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');
         if (userIdCookie !== undefined) {
