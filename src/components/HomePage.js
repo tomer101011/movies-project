@@ -5,13 +5,9 @@ import MovieSwiper from '../components/MovieSwiper.js';
 
 import Cookies from 'universal-cookie';
 
-
-import { server_path } from '../constants/server.js';
-
 export default class HomePage extends Component {
 
     loadPage = () => {
-        console.log(server_path)
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');
         if (userIdCookie !== undefined) {
