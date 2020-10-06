@@ -59,6 +59,15 @@ img.home-swiper {
     opacity: 0.7;
 }
 
+.others-style {
+    transition: opacity 0.3s ease;
+    width: 79%;
+}
+
+.others-style:hover {
+    opacity: 0.7;
+}
+
 @media all and (min-width: 280px) {
     .title-style {
         font-size: 15px;

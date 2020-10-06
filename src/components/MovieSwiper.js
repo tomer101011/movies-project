@@ -62,7 +62,7 @@ export default class MovieSwiper extends Component {
             return (
                 <SwiperSlide>
                     <a href={`#${ROUTES.ALL_MOVIES}`}>
-                        <img onClick={() => this.addCookieSearch()} style={{ maxWidth: '100%', width: '78%' }}
+                        <img onClick={() => this.addCookieSearch()} className="others-style"
                             alt='show others' src={require(`../pictures/others.png`)} />
                     </a>
                 </SwiperSlide>
