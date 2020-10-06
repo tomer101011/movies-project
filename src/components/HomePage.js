@@ -7,6 +7,9 @@ import Cookies from 'universal-cookie';
 
 export default class HomePage extends Component {
 
+    //load the home page based on the userId.
+    //If he is a user, 10 of recent ,favorites and top-rated movies are shown
+    //else he is a guest and only 6 of the recently released movies are shown
     loadPage = () => {
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');

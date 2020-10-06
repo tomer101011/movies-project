@@ -12,16 +12,18 @@ export default class MovieInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            movieInfo: '',
-            favorite: false
+            movieInfo: '',// movie information
+            favorite: false// check if the movie is a user favorite
         }
     }
 
+    //get the information on the movie and set it on a state
     componentDidMount() {
         const cookie = new Cookies();
         let movieId = cookie.get('movieId');
         let userId = cookie.get('userId');
 
+        //check if the specified movie is on the user's favorites
         if (userId !== undefined) {
 
             const data = {
@@ -31,6 +33,7 @@ export default class MovieInfo extends Component {
             const url = `${server_path}/favorites/usermovie`;
             axios.post(url, data)
                 .then(res => {
+                    //if the movie is on the user's favorites, set favorite to true
                     if (res.data.length !== 0)
                         this.setState({ favorite: true })
                 })
@@ -39,12 +42,17 @@ export default class MovieInfo extends Component {
                 })
         }
 
+        //get the movie information based on the movieId given on the previous page
         const url = `${server_path}/movies/info`;
         axios.post(url, { movieId })
             .then(res => {
 
+                //get the movie info
                 const movie = res.data[0];
                 const placeholder = "https://www.genius100visions.com/wp-content/uploads/2017/09/placeholder-vertical.jpg";
+                
+                //if the movie has no poster picture, set the size of the poster
+                //to be the same as the other posters size
                 if (movie.poster === placeholder)
                     document.getElementById('poster').style.width = '30%';
 
@@ -56,6 +64,7 @@ export default class MovieInfo extends Component {
             })
     }
 
+    //Load the "Add to favorite" button on the page
     addFavButon = () => {
         const cookie = new Cookies();
         const userId = cookie.get('userId');
@@ -72,12 +81,16 @@ export default class MovieInfo extends Component {
 
     }
 
+    //Add the movie to the favorites of the user
     clickFavButton = () => {
         const cookie = new Cookies();
         const data = {
             userId: cookie.get('userId'),
             movieId: cookie.get('movieId')
         }
+        
+        //if the movie is not on the user's favorites, then insert it and set favorite state to true
+        //so when the function is called again the else below will be triggered instead
         if (!this.state.favorite) {
             const url = `${server_path}/favorites/insert`;
             axios.post(url, data)
@@ -90,6 +103,8 @@ export default class MovieInfo extends Component {
                     console.log(err);
                 })
         }
+
+        //else the movie is on the user's favorites and then the delete route will be called
         else {
             const url = `${server_path}/favorites/delete`;
             axios.post(url, data)

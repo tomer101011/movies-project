@@ -15,109 +15,23 @@ export default class NavBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: '',
-            password: '',
-            isManager: false,
-            newUserName: '',
-            newPassword: '',
-            confirmPassword: '',
-            loggedUserName: '',
+            userName: '',//login user name
+            password: '',// login password
+            isManager: false,// is the current user the manager
+            newUserName: '',// signup user name
+            newPassword: '',// signup new password
+            confirmPassword: '',// signup confirm password
+            loggedUserName: ''// current logged in user name
         }
     }
 
-    setUserName = (e) => { this.setState({ userName: e.target.value }); }
-
-    setPassword = (e) => { this.setState({ password: e.target.value }); }
-
-    setNewUserName = (e) => { this.setState({ newUserName: e.target.value }); }
-
-    setNewPassword = (e) => { this.setState({ newPassword: e.target.value }); }
-
-    setConfirmPassword = (e) => { this.setState({ confirmPassword: e.target.value }); }
-
-
-    login = () => {
-        if (this.state.userName === '' || this.state.password === '')
-            alert('User name or password can\'t be empty');
-        else {
-            const url = `${server_path}/login`;
-            const data = {
-                userName: this.state.userName,
-                password: this.state.password
-            }
-            axios.post(url, data)
-                .then(result => {
-                    if (result.data === 'user not found')
-                        alert('User name or password incorrect');
-
-                    else {
-                        const cookie = new Cookies();
-                        const options = {
-                            path: '/',
-                            maxAge: 120 * 60 * 1000,
-                            httponly: true,
-                            sameSite: true
-                        }
-                        cookie.set('userId', result.data.userId, options);
-                        window.location.reload(false);
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-        }
-    }
-
-    signUp = () => {
-        if (this.state.newUserName === '' || this.state.newPassword === '' || this.state.confirmPassword === '')
-            alert('Credentials can\'t be empty');
-
-        else if (this.state.newPassword !== this.state.confirmPassword)
-            alert('You need to confirm the password');
-
-        else {
-            const url = `${server_path}/signup`;
-            const data = {
-                newUserName: this.state.newUserName,
-                newPassword: this.state.newPassword
-            }
-            axios.post(url, data)
-                .then(result => {
-                    if (result.data === 'user name taken')
-                        alert('User name already taken');
-
-                    else {
-                        const cookie = new Cookies();
-                        const options = {
-                            path: '/',
-                            maxAge: 120 * 60 * 1000,
-                            httponly: true,
-                            sameSite: true
-                        }
-                        cookie.set('userId', result.data.userId, options);
-                        window.location.reload(false);
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-        }
-
-    }
-
-    logOut = () => {
-        const cookie = new Cookies();
-        cookie.remove('userId', { path: '/' });
-        const pageHref = window.location.href;
-        const pageLocation = pageHref.substr(pageHref.indexOf('#') + 1);
-        this.setState({ loggedUserName: 'logged out' });
-        if (pageLocation === ROUTES.HOME)
-            window.location.reload(false);
-    }
-
+    //get the user name based on userId on every refresh after he logs in
     componentDidMount() {
+
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');
+        
+        //if the user is logged in, then get his user name
         if (userIdCookie !== undefined) {
             const url = `${server_path}/login/user`;
 
@@ -134,6 +48,117 @@ export default class NavBar extends Component {
                 })
         }
     }
+
+    //set States based on inputs
+    setUserName = (e) => { this.setState({ userName: e.target.value }); }
+
+    setPassword = (e) => { this.setState({ password: e.target.value }); }
+
+    setNewUserName = (e) => { this.setState({ newUserName: e.target.value }); }
+
+    setNewPassword = (e) => { this.setState({ newPassword: e.target.value }); }
+
+    setConfirmPassword = (e) => { this.setState({ confirmPassword: e.target.value }); }
+
+
+    //login to the web app
+    login = () => {
+        //check input validations
+        if (this.state.userName === '' || this.state.password === '')
+            alert('User name or password can\'t be empty');
+        
+        else {
+            const url = `${server_path}/login`;
+            const data = {
+                userName: this.state.userName,
+                password: this.state.password
+            }
+            //check validation based on user name or password on the database
+            axios.post(url, data)
+                .then(result => {
+                    //if the user is not found
+                    if (result.data === 'user not found')
+                        alert('User name or password incorrect');
+
+                    //given user name and password match the database one
+                    //set a cookie "userId" so after every refresh, the user won't need to log again
+                    else {
+                        const cookie = new Cookies();
+                        const options = {
+                            path: '/',
+                            maxAge: 120 * 60 * 1000,
+                            httponly: true,
+                            sameSite: true
+                        }
+                        cookie.set('userId', result.data.userId, options);
+                        window.location.reload(false);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }
+
+    //sign up to the web app
+    signUp = () => {
+        //check input validations
+        if (this.state.newUserName === '' || this.state.newPassword === '' || this.state.confirmPassword === '')
+            alert('Credentials can\'t be empty');
+
+        else if (this.state.newPassword !== this.state.confirmPassword)
+            alert('You need to confirm the password');
+
+        else {
+            const url = `${server_path}/signup`;
+            const data = {
+                newUserName: this.state.newUserName,
+                newPassword: this.state.newPassword
+            }
+
+            //sign up the new user
+            axios.post(url, data)
+                .then(result => {
+                    if (result.data === 'user name taken')
+                        alert('User name already taken');
+
+                    else {
+                        //set a cookie "userId" so after every refresh, the user won't need to log again
+                        const cookie = new Cookies();
+                        const options = {
+                            path: '/',
+                            maxAge: 120 * 60 * 1000,
+                            httponly: true,
+                            sameSite: true
+                        }
+                        cookie.set('userId', result.data.userId, options);
+                        window.location.reload(false);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
+    }
+
+    //log out from the web app and destroy the "userId" cookie
+    //destroy the "userId" cookie and refresh the current 
+    //page if the user is on the home page to remove the swipers accessible only to the user
+    logOut = () => {
+        const cookie = new Cookies();
+        cookie.remove('userId', { path: '/' });
+
+        //refresh the current page if the user is on the home page to remove
+        //the swipers accessible only to the user
+        const pageHref = window.location.href;
+        const pageLocation = pageHref.substr(pageHref.indexOf('#') + 1);
+        this.setState({ loggedUserName: 'logged out' });
+        if (pageLocation === ROUTES.HOME)
+            window.location.reload(false);
+    }
+
+    //load an "Add/Remove a Movie" button if the user is the manager
     addMovieButton = () => {
         if (this.state.isManager)
             return (
@@ -141,6 +166,7 @@ export default class NavBar extends Component {
             );
     }
 
+    //function to change cookie search order "show" to recent for the "See All Movies" button
     addCookieSearch = () => {
         const cookie = new Cookies();
         const options = {
@@ -152,6 +178,7 @@ export default class NavBar extends Component {
         const searchOrder = 'recent';
         cookie.set('show', searchOrder, options);
 
+        //refresh the page if the button is clicked on All movies route
         const pageHref = window.location.href;
         const pageLocation = pageHref.substr(pageHref.indexOf('#') + 1);
         if (pageLocation === ROUTES.ALL_MOVIES)
@@ -159,9 +186,12 @@ export default class NavBar extends Component {
 
     }
 
+    //load log buttons on the page
     loadLogButtons = () => {
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');
+
+        //if the user is logged in, change the NavBar button layout
         if (userIdCookie !== undefined) {
             return (
                 <ul className="nav navbar-nav navbar-right">
@@ -180,6 +210,7 @@ export default class NavBar extends Component {
                 </ul>
             );
         }
+        //else user is logged out
         else {
             return (
                 <ul className="nav navbar-nav navbar-right">
@@ -233,7 +264,6 @@ export default class NavBar extends Component {
                         <span className="icon-bar"></span>
                     </button>
                 </div>
-                {/* Collection of nav links, forms, and other content for toggling  */}
                 <div id="navbarCollapse" className="collapse navbar-collapse">
                     {this.loadLogButtons()}
                 </div>

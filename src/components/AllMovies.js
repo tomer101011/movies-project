@@ -7,7 +7,6 @@ import zenscroll from 'zenscroll';
 
 import '../styles/all-movies-style.css'
 
-
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { server_path } from '../constants/server.js';
@@ -19,25 +18,32 @@ export default class AllMovies extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchTitle: '',
-            movies: [],
-            changePage: false
+            searchTitle: '',// search Title
+            movies: [],// all the movies based on the "show" cookie
+            changePage: false// change page
         }
     }
 
+    //check if the user is not a guest and autorized to be here
+    //also gets all the movies from the database based on "show" cookie
     componentDidMount() {
         const cookie = new Cookies();
         const userId = cookie.get('userId');
 
+        //check if the user is not a guest. If he is, he will be redirected to home page
         if (userId === undefined)
             this.setState({ changePage: true });
 
         else {
+            //get the "show" cookie: how the movies will be fetched from the database
             const show = cookie.get('show');
-            this.scroll();
+            this.scroll();// function to add scroll to top of the page mechanism
 
+            //The movies will be fetched based on the "show" cookie type:
+            //recent search type, favorites search type or top-rated search type
             let url = '';
             let searchTitle = '';
+            //the url to fetch data from the server is changed according to "show" cookie
             switch (show) {
                 case 'recent':
                     url = `${server_path}/movies/recent/all`;
@@ -51,6 +57,8 @@ export default class AllMovies extends Component {
                     url = `${server_path}/movies/topRated/all`;
                     searchTitle = 'Top rated';
             }
+
+            //call the server to fetch the movies
             axios.post(url, { userId })
                 .then(res => {
                     this.setState({ movies: res.data, searchTitle: searchTitle });
@@ -59,10 +67,12 @@ export default class AllMovies extends Component {
         }
     }
 
+    //scroll to top button mechanism
     scroll = () => {
         window.onscroll = () => {
             let currentScrollPos = window.pageYOffset;
             if (document.getElementById("toTop") !== null) {
+                //if the window is at the top, then the scroll button is not
                 if (currentScrollPos === 0) {
                     document.getElementById("toTop").style.display = "none";
                 }
@@ -70,13 +80,14 @@ export default class AllMovies extends Component {
                     document.getElementById("toTop").style.display = "block";
             }
         }
-
     }
 
+    //go to top of the page will be smooth
     goTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    //add a cookie with a given movieId
     addCookieMovieId = (movieId) => {
         const cookie = new Cookies();
         const options = {
@@ -88,6 +99,7 @@ export default class AllMovies extends Component {
         cookie.set('movieId', movieId, options);
     }
 
+    //load the movies based on searchOrder given: "recent", "favorites", "top-rated" orders 
     loadMovies = (searchOrder) => {
         const cookie = new Cookies();
         const userId = cookie.get('userId');
@@ -108,6 +120,7 @@ export default class AllMovies extends Component {
                 searchTitle = 'Top rated';
         }
 
+        //also set the "show" cookie to the order given so if we do a refresh, the movies will be loaded again
         const options = {
             path: '/',
             maxAge: 120 * 60 * 1000,
@@ -116,6 +129,7 @@ export default class AllMovies extends Component {
         }
         cookie.set('show', searchOrder, options);
 
+        //call the server to fetch the movies
         axios.post(url, { userId })
             .then(res => {
                 this.setState({ movies: res.data, searchTitle: searchTitle });
@@ -123,6 +137,7 @@ export default class AllMovies extends Component {
             .catch(err => { console.log(err); })
     }
 
+    //show the movies to the screen if there are any. If not, a placeholder picture is displayed
     loadMoviePictures = () => {
         if (this.state.movies.length !== 0)
             return (
@@ -141,6 +156,8 @@ export default class AllMovies extends Component {
                     }
                 </div>
             );
+
+        //placeholder picture is displayed
         else {
             const picture = require(`../pictures/noFavorites.png`);
             return (
@@ -149,6 +166,7 @@ export default class AllMovies extends Component {
         }
     }
 
+    //show search buttons on the page
     loadSearchButons = () => {
         return (
             <div className="marginButtons">
@@ -159,6 +177,7 @@ export default class AllMovies extends Component {
         );
     }
 
+    //if the changePage state is true, the page wil be redirected to the home page
     doRedirect = () => {
         if (this.state.changePage)
             return <Redirect to={ROUTES.HOME} />

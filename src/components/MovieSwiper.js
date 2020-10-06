@@ -26,7 +26,10 @@ export default class MovieSwiper extends Component {
         }
     }
 
+    //load the movies swiper based on the parameters
     componentDidMount() {
+        //check what to fetch from the database based on orderSwiper:
+        //recent, favorites or top-rated order
         let url = '';
         switch (this.props.orderSwiper) {
             case 'recent':
@@ -39,6 +42,7 @@ export default class MovieSwiper extends Component {
                 url = `${server_path}/movies/topRated/${this.props.count}`;
         }
 
+        //fetch the movies from the database
         const cookie = new Cookies();
         const userId = cookie.get('userId');
         axios.post(url, { userId })
@@ -50,6 +54,7 @@ export default class MovieSwiper extends Component {
             })
     }
 
+    //load a "show others" picture to show on click the other movies not on the home page
     showOthersPicture = () => {
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');
@@ -57,13 +62,15 @@ export default class MovieSwiper extends Component {
             return (
                 <SwiperSlide>
                     <a href={`#${ROUTES.ALL_MOVIES}`}>
-                        <img onClick={() => this.addCookieSearch()} style={{ maxWidth: '100%', width: '78%' }} alt='show others' src={require(`../pictures/others.png`)} />
+                        <img onClick={() => this.addCookieSearch()} style={{ maxWidth: '100%', width: '78%' }}
+                            alt='show others' src={require(`../pictures/others.png`)} />
                     </a>
                 </SwiperSlide>
             )
         }
     }
 
+    //add a "show" cookie order: recent, favorites or top-rated order
     addCookieSearch = () => {
         const cookie = new Cookies();
         const options = {
@@ -75,6 +82,7 @@ export default class MovieSwiper extends Component {
         cookie.set('show', this.props.orderSwiper, options);
     }
 
+    //add a "movieId" cookie that will be used on MovieInfo component
     addCookieMovieId = (movieId) => {
         const cookie = new Cookies();
         const options = {
@@ -86,6 +94,7 @@ export default class MovieSwiper extends Component {
         cookie.set('movieId', movieId, options);
     }
 
+    //load the movies swiper on the page
     showMovies = () => {
         if (this.state.movies.length !== 0) {
             return (
@@ -117,7 +126,6 @@ export default class MovieSwiper extends Component {
                         this.state.movies.map((movie, i) => {
                             return (
                                 <SwiperSlide key={i}>
-                                    {/* <button >Favorite</button> */}
                                     <Link to={{ pathname: ROUTES.MOVIE }}>
                                         <img onClick={() => this.addCookieMovieId(movie.movieId)} className="imgSwiper" style={{ maxWidth: '90%', width: '80%' }} alt={movie.title} src={movie.poster} />
                                         <h3 className="hometitle">{movie.title}</h3>
@@ -132,6 +140,7 @@ export default class MovieSwiper extends Component {
         }
     }
 
+    //load the title of the movie swiper on the page
     setTitle = () => {
         switch (this.props.orderSwiper) {
             case 'recent':
