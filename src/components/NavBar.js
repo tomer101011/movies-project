@@ -249,7 +249,7 @@ export default class NavBar extends Component {
         }
     }
 
-    //function to refresh the current page if it is the home page
+    //refresh the current page if it is the home page
     refreshPage = () => {
         const pageHref = window.location.href;
         const pageLocation = pageHref.substr(pageHref.indexOf('#') + 1);
