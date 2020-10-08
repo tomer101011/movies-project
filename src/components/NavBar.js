@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 
-import axios from 'axios';
-import Cookies from 'universal-cookie';
-
 import '../styles/navbar-style.css';
 
-import *  as ROUTES from '../constants/routes';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 import { server_path } from '../constants/server.js';
-
+import *  as ROUTES from '../constants/routes.js';
 
 export default class NavBar extends Component {
 

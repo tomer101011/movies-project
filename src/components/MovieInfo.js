@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 
+import '../styles/movie-info-style.css';
+
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import { server_path } from '../constants/server.js';
-
-import '../styles/movie-info-style.css';
-
 
 export default class MovieInfo extends Component {
 

@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
 
+import '../styles/movie-info-style.css';
+import '../styles/add-movie-style.css';
+
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { server_path } from '../constants/server.js';
 import LoadingSpinner from './LoadingSpinner.js';
-import * as ROUTES from '../constants/routes';
-
-import '../styles/movie-info-style.css';
-import '../styles/add-movie-style.css';
+import * as ROUTES from '../constants/routes.js';
 
 export default class AddMovie extends Component {
 

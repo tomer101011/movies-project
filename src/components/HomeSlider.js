@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
+//import Swiper styles
+import 'swiper/swiper.scss';
+import 'swiper/components/pagination/pagination.scss';
+
 import SwiperCore, { Pagination, Autoplay, EffectFade } from 'swiper';
 import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { server_path } from '../constants/server.js';
-
-//import Swiper styles
-import 'swiper/swiper.scss';
-import 'swiper/components/pagination/pagination.scss';
 
 //use Swiper components
 SwiperCore.use([Pagination, Autoplay, EffectFade]);

@@ -4,11 +4,10 @@ import { Link, Redirect } from 'react-router-dom';
 import '../styles/all-movies-style.css'
 
 import axios from 'axios';
+import scrollToElement from 'scroll-to-element';
 import Cookies from 'universal-cookie';
 import { server_path } from '../constants/server.js';
-import * as ROUTES from '../constants/routes';
-
-var scrollToElement = require('scroll-to-element');
+import * as ROUTES from '../constants/routes.js';
 
 export default class AllMovies extends Component {
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import Loader from 'react-loader-spinner';
 
 import '../styles/add-movie-style.css';
+
+import Loader from 'react-loader-spinner';
 
 //The Loading spinner component is called when you search OMDb for the movie
 export default class LoadingSpinner extends Component {

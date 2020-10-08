@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 
+import Cookies from 'universal-cookie';
 import HomeSlider from '../components/HomeSlider.js';
 import MovieSwiper from '../components/MovieSwiper.js';
-
-import Cookies from 'universal-cookie';
 
 export default class HomePage extends Component {
 

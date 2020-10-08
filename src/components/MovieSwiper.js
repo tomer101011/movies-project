@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation } from 'swiper';
-import Cookies from 'universal-cookie';
-import axios from 'axios';
-
-import * as ROUTES from '../constants/routes';
-import { server_path } from '../constants/server.js';
-
 // Import Swiper styles
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import '../styles/swiper-style.css';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation } from 'swiper';
+import Cookies from 'universal-cookie';
+import axios from 'axios';
+import { server_path } from '../constants/server.js';
+import * as ROUTES from '../constants/routes.js';
 
 // install Swiper components
 SwiperCore.use([Navigation]);
