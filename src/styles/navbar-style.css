@@ -44,6 +44,10 @@ body {
     color: #33cabb;
 }
 
+.pTagStyle {
+    margin: 0;
+}
+
 .navbar .form-inline {
     display: inline-block;
 }

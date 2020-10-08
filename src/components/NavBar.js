@@ -28,7 +28,7 @@ export default class NavBar extends Component {
 
         const cookie = new Cookies();
         const userIdCookie = cookie.get('userId');
-        
+
         //if the user is logged in, then get his user name
         if (userIdCookie !== undefined) {
             const url = `${server_path}/login/user`;
@@ -64,7 +64,7 @@ export default class NavBar extends Component {
         //check input validations
         if (this.state.userName === '' || this.state.password === '')
             alert('User name or password can\'t be empty');
-        
+
         else {
             const url = `${server_path}/login`;
             const data = {
@@ -181,7 +181,6 @@ export default class NavBar extends Component {
         const pageLocation = pageHref.substr(pageHref.indexOf('#') + 1);
         if (pageLocation === ROUTES.ALL_MOVIES)
             window.location.reload(false);
-
     }
 
     //load log buttons on the page
@@ -199,7 +198,7 @@ export default class NavBar extends Component {
                             <li className="center-li">
                                 <a onClick={() => { this.addCookieSearch() }} href={`#${ROUTES.ALL_MOVIES}`} className="fav-style">See All Movies</a>
                                 {this.addMovieButton()}
-                                <Link to="/">
+                                <Link to={{ pathname: ROUTES.HOME }}>
                                     <button onClick={() => this.logOut()} className="logout-text">Log Out</button>
                                 </Link>
                             </li>
@@ -250,11 +249,21 @@ export default class NavBar extends Component {
         }
     }
 
+    //function to refresh the current page if it is the home page
+    refreshPage = () => {
+        const pageHref = window.location.href;
+        const pageLocation = pageHref.substr(pageHref.indexOf('#') + 1);
+        if (pageLocation === ROUTES.HOME)
+            window.location.reload(false);
+    }
+
     render() {
         return (
             <nav id="navbar" className="navbar navbar-default navbar-expand-lg navbar-light">
                 <div className="navbar-header">
-                    <a className="navbar-brand" href={`#${ROUTES.HOME}`}>Movie<b>Mojo</b></a>
+                    <Link to={{ pathname: ROUTES.HOME }}>
+                        <p onClick={() => this.refreshPage()} className="navbar-brand pTagStyle">Movie<b>Mojo</b></p>
+                    </Link>
                     <button type="button" data-target="#navbarCollapse" data-toggle="collapse" className="navbar-toggle">
                         <span className="navbar-toggler-icon"></span>
                         <span className="icon-bar"></span>

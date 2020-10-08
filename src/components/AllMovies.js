@@ -24,7 +24,7 @@ export default class AllMovies extends Component {
     //also gets all the movies from the database based on "show" cookie
     componentDidMount() {
         //scroll to top button- button shown or not shown on top
-        this.scroll();
+        this.scrollButton();
         const cookie = new Cookies();
         const userId = cookie.get('userId');
 
@@ -65,7 +65,7 @@ export default class AllMovies extends Component {
     }
 
     //scroll to top button- button shown or not shown on top
-    scroll = () => {
+    scrollButton = () => {
         window.onscroll = () => {
             let currentScrollPos = window.pageYOffset;
             if (document.getElementById("toTop") !== null) {
@@ -84,7 +84,7 @@ export default class AllMovies extends Component {
         scrollToElement('.content', {
             offset: 0,
             ease: 'inOutSine',
-            duration: 1000
+            duration: 500
         });
     }
 
@@ -121,7 +121,8 @@ export default class AllMovies extends Component {
                 searchTitle = 'Top rated';
         }
 
-        //also set the "show" cookie to the order given so if we do a refresh, the movies will be loaded again
+        //also set the "show" cookie to the order given so if we
+        //do a refresh, the movies will be loaded again
         const options = {
             path: '/',
             maxAge: 120 * 60 * 1000,
@@ -138,7 +139,8 @@ export default class AllMovies extends Component {
             .catch(err => { console.log(err); })
     }
 
-    //show the movies to the screen if there are any. If not, a placeholder picture is displayed
+    //show the movies to the screen if there are any.
+    //If not, a placeholder picture is displayed
     loadMoviePictures = () => {
         if (this.state.movies.length !== 0)
             return (
