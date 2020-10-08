@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom';
 
-/* eslint-disable */
-import zenscroll from 'zenscroll';
-/* eslint-enabled */
-
 import '../styles/all-movies-style.css'
 
 import axios from 'axios';
@@ -12,6 +8,7 @@ import Cookies from 'universal-cookie';
 import { server_path } from '../constants/server.js';
 import * as ROUTES from '../constants/routes';
 
+var scrollToElement = require('scroll-to-element');
 
 export default class AllMovies extends Component {
 
@@ -27,6 +24,8 @@ export default class AllMovies extends Component {
     //check if the user is not a guest and autorized to be here
     //also gets all the movies from the database based on "show" cookie
     componentDidMount() {
+        //scroll to top button- button shown or not shown on top
+        this.scroll();
         const cookie = new Cookies();
         const userId = cookie.get('userId');
 
@@ -37,7 +36,6 @@ export default class AllMovies extends Component {
         else {
             //get the "show" cookie: how the movies will be fetched from the database
             const show = cookie.get('show');
-            this.scroll();// function to add scroll to top of the page mechanism
 
             //The movies will be fetched based on the "show" cookie type:
             //recent search type, favorites search type or top-rated search type
@@ -67,7 +65,7 @@ export default class AllMovies extends Component {
         }
     }
 
-    //scroll to top button mechanism
+    //scroll to top button- button shown or not shown on top
     scroll = () => {
         window.onscroll = () => {
             let currentScrollPos = window.pageYOffset;
@@ -84,7 +82,11 @@ export default class AllMovies extends Component {
 
     //go to top of the page will be smooth
     goTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        scrollToElement('.content', {
+            offset: 0,
+            ease: 'inOutSine',
+            duration: 1000
+        });
     }
 
     //add a cookie with a given movieId
@@ -161,7 +163,7 @@ export default class AllMovies extends Component {
         else {
             const picture = require(`../pictures/noFavorites.png`);
             return (
-                <img className="no-movies-pic" alt="No movies picture" src={picture} />
+                <img className="no-movies-pic" alt="No movies" src={picture} />
             );
         }
     }
