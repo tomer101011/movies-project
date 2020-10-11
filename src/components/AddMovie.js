@@ -17,7 +17,7 @@ export default class AddMovie extends Component {
         this.state = {
             searchInput: '',//search box input
             movieInfo: '',// movie info that will be loaded
-            trailer: '',// trailer of the movie
+            trailer: '',//trailer of the movie
             movieFromDB: [],// array with a movieId to check if the movie exist on the database
             loading: false,// show loading animation div
             showSections: false,// show movie section divs
