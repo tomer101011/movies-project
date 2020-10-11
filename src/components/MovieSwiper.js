@@ -150,6 +150,7 @@ export default class MovieSwiper extends Component {
                     return (<h2 className="panel">Favorite movies</h2>)
                 break;
 
+            //top-rated
             default:
                 return (<h2 className="panel">Top rated</h2>)
         }
