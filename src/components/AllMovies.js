@@ -50,6 +50,8 @@ export default class AllMovies extends Component {
                     url = `${server_path}/movies/favorites/all`;
                     searchTitle = 'Favorite movies';
                     break;
+
+                //top-rated
                 default:
                     url = `${server_path}/movies/topRated/all`;
                     searchTitle = 'Top rated';
@@ -116,6 +118,7 @@ export default class AllMovies extends Component {
                 url = `${server_path}/movies/favorites/all`;
                 searchTitle = 'Favorite movies';
                 break;
+
             default:
                 url = `${server_path}/movies/topRated/all`;
                 searchTitle = 'Top rated';
