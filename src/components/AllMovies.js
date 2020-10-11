@@ -46,6 +46,7 @@ export default class AllMovies extends Component {
                     url = `${server_path}/movies/recent/all`;
                     searchTitle = 'Released recently';
                     break;
+
                 case 'favorites':
                     url = `${server_path}/movies/favorites/all`;
                     searchTitle = 'Favorite movies';
@@ -114,6 +115,7 @@ export default class AllMovies extends Component {
                 url = `${server_path}/movies/recent/all`;
                 searchTitle = 'Released recently';
                 break;
+                
             case 'favorites':
                 url = `${server_path}/movies/favorites/all`;
                 searchTitle = 'Favorite movies';

@@ -34,9 +34,12 @@ export default class MovieSwiper extends Component {
             case 'recent':
                 url = `${server_path}/movies/recent/${this.props.count}`;
                 break;
+                
             case 'favorites':
                 url = `${server_path}/movies/favorites/${this.props.count}`;
                 break;
+
+            //top-rated
             default:
                 url = `${server_path}/movies/topRated/${this.props.count}`;
         }
