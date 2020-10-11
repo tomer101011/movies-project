@@ -119,6 +119,7 @@ export default class AllMovies extends Component {
                 searchTitle = 'Favorite movies';
                 break;
 
+            //top-rated
             default:
                 url = `${server_path}/movies/topRated/all`;
                 searchTitle = 'Top rated';
