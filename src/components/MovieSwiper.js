@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import '../styles/swiper-style.css';
+import otherPicture from '../pictures/others.png';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper';
@@ -34,7 +35,7 @@ export default class MovieSwiper extends Component {
             case 'recent':
                 url = `${server_path}/movies/recent/${this.props.count}`;
                 break;
-                
+
             case 'favorites':
                 url = `${server_path}/movies/favorites/${this.props.count}`;
                 break;
@@ -65,7 +66,7 @@ export default class MovieSwiper extends Component {
                 <SwiperSlide>
                     <a href={`#${ROUTES.ALL_MOVIES}`}>
                         <img onClick={() => this.addCookieSearch()} className="others-style"
-                            alt='show others' src={require(`../pictures/others.png`)} />
+                            alt='show others' src={otherPicture} />
                     </a>
                 </SwiperSlide>
             )
