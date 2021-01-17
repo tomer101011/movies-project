@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 //import Swiper styles
 import 'swiper/swiper.scss';
 import 'swiper/components/pagination/pagination.scss';
+import 'swiper/components/effect-fade/effect-fade.scss';
 
 import SwiperCore, { Pagination, Autoplay, EffectFade } from 'swiper';
 import axios from 'axios';
@@ -66,7 +67,7 @@ export default class HomeSlider extends Component {
                     slidesPerView={1}
                     pagination={{ clickable: true }}
                     loop={true}
-                    autoplay={{ delay: 4000 }}
+                    autoplay={{ delay: 4000, disableOnInteraction: false }}
                     effect='fade'
                 >
                     {
