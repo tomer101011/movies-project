@@ -160,7 +160,7 @@ export default class NavBar extends Component {
     addMovieButton = () => {
         if (this.state.isManager)
             return (
-                <a href={ROUTES.ADD_MOVIE} className="add-movie-style">Add/Remove a Movie</a>
+                <Link to={{ pathname: ROUTES.ADD_MOVIE }} className="add-movie-style">Add/Remove a Movie</Link>
             );
     }
 
@@ -196,7 +196,7 @@ export default class NavBar extends Component {
                         <a href="/#" data-toggle="dropdown" className="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Welcome {this.state.loggedUserName}</a>
                         <ul className="dropdown-menu form-wrapper">
                             <li className="center-li">
-                                <a onClick={() => { this.addCookieSearch() }} href={ROUTES.ALL_MOVIES} className="fav-style">See All Movies</a>
+                                <Link onClick={() => { this.addCookieSearch() }} to={{ pathname: ROUTES.ALL_MOVIES }} className="fav-style">See All Movies</Link>
                                 {this.addMovieButton()}
                                 <Link to={{ pathname: ROUTES.HOME }}>
                                     <button onClick={() => this.logOut()} className="logout-text">Log Out</button>
