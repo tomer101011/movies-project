@@ -64,7 +64,7 @@ export default class MovieSwiper extends Component {
         if (userIdCookie !== undefined) {
             return (
                 <SwiperSlide>
-                    <a href={`#${ROUTES.ALL_MOVIES}`}>
+                    <a href={ROUTES.ALL_MOVIES}>
                         <img onClick={() => this.addCookieSearch()} className="others-style"
                             alt='show others' src={otherPicture} />
                     </a>
