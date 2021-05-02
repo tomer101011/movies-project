@@ -10,10 +10,12 @@ export const searchOrderMap = (count) => {
         },
         favorites: {
             url: `${server_path}/movies/favorites/${count}`,
+            searchTitle: 'Favorite movies',
             headLabel: <h2 className="panel">Favorite movies</h2>
         },
         topRated: {
             url: `${server_path}/movies/topRated/${count}`,
+            searchTitle: 'Top rated',
             headLabel: <h2 className="panel">Top rated</h2>
         }
     }
