@@ -6,8 +6,8 @@ import '../styles/all-movies-style.css'
 import axios from 'axios';
 import scrollToElement from 'scroll-to-element';
 import Cookies from 'universal-cookie';
-import { server_path } from '../constants/server.js';
 import * as ROUTES from '../constants/routes.js';
+import { searchOrderMap } from '../configs/configFile.js';
 
 export default class AllMovies extends Component {
 
@@ -41,22 +41,8 @@ export default class AllMovies extends Component {
             let url = '';
             let searchTitle = '';
             //the url to fetch data from the server is changed according to "show" cookie
-            switch (show) {
-                case 'recent':
-                    url = `${server_path}/movies/recent/all`;
-                    searchTitle = 'Released recently';
-                    break;
-
-                case 'favorites':
-                    url = `${server_path}/movies/favorites/all`;
-                    searchTitle = 'Favorite movies';
-                    break;
-
-                //top-rated
-                default:
-                    url = `${server_path}/movies/topRated/all`;
-                    searchTitle = 'Top rated';
-            }
+            url = searchOrderMap('all')[show].url;
+            searchTitle = searchOrderMap('all')[show].searchTitle;
 
             //call the server to fetch the movies
             axios.post(url, { userId })
@@ -110,22 +96,8 @@ export default class AllMovies extends Component {
         let url = '';
         let searchTitle = '';
 
-        switch (searchOrder) {
-            case 'recent':
-                url = `${server_path}/movies/recent/all`;
-                searchTitle = 'Released recently';
-                break;
-                
-            case 'favorites':
-                url = `${server_path}/movies/favorites/all`;
-                searchTitle = 'Favorite movies';
-                break;
-
-            //top-rated
-            default:
-                url = `${server_path}/movies/topRated/all`;
-                searchTitle = 'Top rated';
-        }
+        url = searchOrderMap('all')[searchOrder].url;
+        searchTitle = searchOrderMap('all')[searchOrder].searchTitle;
 
         //also set the "show" cookie to the order given so if we
         //do a refresh, the movies will be loaded again
@@ -181,7 +153,7 @@ export default class AllMovies extends Component {
             <div className="marginButtons">
                 <button onClick={() => this.loadMovies('recent')} className="styleChoices releasedButton">Released recently</button>
                 <button onClick={() => this.loadMovies('favorites')} className="styleChoices favoriteButton">Favorites</button>
-                <button onClick={() => this.loadMovies('top-rated')} className="styleChoices topRatedButton">Top rated</button>
+                <button onClick={() => this.loadMovies('topRated')} className="styleChoices topRatedButton">Top rated</button>
             </div>
         );
     }

@@ -11,8 +11,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-import { server_path } from '../constants/server.js';
 import * as ROUTES from '../constants/routes.js';
+import { searchOrderMap } from '../configs/configFile.js';
 
 // install Swiper components
 SwiperCore.use([Navigation]);
@@ -31,19 +31,7 @@ export default class MovieSwiper extends Component {
         //check what to fetch from the database based on orderSwiper:
         //recent, favorites or top-rated order
         let url = '';
-        switch (this.props.orderSwiper) {
-            case 'recent':
-                url = `${server_path}/movies/recent/${this.props.count}`;
-                break;
-
-            case 'favorites':
-                url = `${server_path}/movies/favorites/${this.props.count}`;
-                break;
-
-            //top-rated
-            default:
-                url = `${server_path}/movies/topRated/${this.props.count}`;
-        }
+        url = searchOrderMap(this.props.count)[this.props.orderSwiper].url;
 
         //fetch the movies from the database
         const cookie = new Cookies();
@@ -65,8 +53,8 @@ export default class MovieSwiper extends Component {
             return (
                 <SwiperSlide>
                     <Link to={{ pathname: ROUTES.ALL_MOVIES }}>
-                    <img onClick={() => this.addCookieSearch()} className="others-style"
-                        alt='show others' src={otherPicture} />
+                        <img onClick={() => this.addCookieSearch()} className="others-style"
+                            alt='show others' src={otherPicture} />
                     </Link>
                 </SwiperSlide >
             )
@@ -145,19 +133,7 @@ export default class MovieSwiper extends Component {
 
     //load the title of the movie swiper on the page
     setTitle = () => {
-        switch (this.props.orderSwiper) {
-            case 'recent':
-                return (<h2 className="panel">Released recently</h2>)
-
-            case 'favorites':
-                if (this.state.movies.length !== 0)
-                    return (<h2 className="panel">Favorite movies</h2>)
-                break;
-
-            //top-rated
-            default:
-                return (<h2 className="panel">Top rated</h2>)
-        }
+        return (searchOrderMap('-1')[this.props.orderSwiper].headLabel);
     }
 
     render() {
