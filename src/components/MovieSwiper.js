@@ -128,7 +128,7 @@ export default class MovieSwiper extends Component {
                     {
                         this.state.movies.map((movie, i) => {
                             return (
-                                <SwiperSlide key={i}>
+                                <SwiperSlide key={movie.movieId}>
                                     <Link to={{ pathname: ROUTES.MOVIE }}>
                                         <img onClick={() => this.addCookieMovieId(movie.movieId)} className="imgSwiper" style={{ maxWidth: '90%', width: '80%' }} alt={movie.title} src={movie.poster} />
                                         <h3 className="hometitle">{movie.title}</h3>

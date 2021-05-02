@@ -72,7 +72,7 @@ export default class HomeSlider extends Component {
                 >
                     {
                         this.state.posters.map((poster, i) => {
-                            return <SwiperSlide key={i}>
+                            return <SwiperSlide key={poster.posterId}>
                                 <img className="home-swiper" alt={poster.title} src={poster.poster} />
                                 <div className="caption">
                                     <div className="captioninside">

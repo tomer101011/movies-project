@@ -154,7 +154,7 @@ export default class AllMovies extends Component {
                     {
                         this.state.movies.map((movie, i) => {
                             return (
-                                <div key={i} className="mov">
+                                <div key={movie.movieId} className="mov">
                                     <Link to={{ pathname: ROUTES.MOVIE }}>
                                         <img onClick={() => this.addCookieMovieId(movie.movieId)} alt={movie.title} src={movie.poster} />
                                         <h2 className="movietitle">{movie.title}</h2>
