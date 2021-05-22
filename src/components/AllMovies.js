@@ -173,6 +173,8 @@ export default class AllMovies extends Component {
         //temp change
         const temp='a'
         
+        //temp2 change
+        const tomer= "shoko";
         return (
             <main className="content">
                 {this.doRedirect()}
