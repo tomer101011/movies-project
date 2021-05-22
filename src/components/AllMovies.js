@@ -160,21 +160,11 @@ export default class AllMovies extends Component {
 
     //if the changePage state is true, the page wil be redirected to the home page
     doRedirect = () => {
-        //temp2 change
-        const temp2= "aaa";
-        
         if (this.state.changePage)
             return <Redirect to={ROUTES.HOME} />
     }
 
     render() {
-        //temp change
-        const temp=''
-        //temp change
-        const temp='a'
-        
-        //temp2 change
-        const tomer= "shoko";
         return (
             <main className="content">
                 {this.doRedirect()}
