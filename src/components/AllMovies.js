@@ -171,7 +171,7 @@ export default class AllMovies extends Component {
         //temp change
         const temp=''
         //temp change
-        const temp=''
+        const temp='a'
         
         return (
             <main className="content">
