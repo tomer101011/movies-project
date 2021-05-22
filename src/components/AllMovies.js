@@ -165,6 +165,9 @@ export default class AllMovies extends Component {
     }
 
     render() {
+        //temp change
+        const temp=''
+        
         return (
             <main className="content">
                 {this.doRedirect()}
