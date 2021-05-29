@@ -7,8 +7,9 @@ export const userSlice = createSlice({
     getManagerStatus: () => { },
 
     setManagerStatus: (state, action) => {
-      const {isManager} = action.payload;
-      state.managerStatus= isManager;
+      const { isManager } = action.payload;
+      const userData = { managerStatus: isManager };
+      return { ...state, ...userData }
     },
   },
 });

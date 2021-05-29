@@ -5,7 +5,6 @@ import { setManagerStatus } from "../../ducks/user";
 export function* handleGetManagerStatus() {
     try {
         //yield is like await
-        console.log('entered');
         const response = yield call(requestGetManagerStatus);
         const { data } = response;
         yield put(setManagerStatus({ ...data }));

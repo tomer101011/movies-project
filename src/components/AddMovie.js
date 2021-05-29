@@ -5,14 +5,13 @@ import '../styles/movie-info-style.css';
 import '../styles/add-movie-style.css';
 
 import axios from 'axios';
-import { useDispatch, useSelector } from "react-redux";
 import { getManagerStatus } from '../redux/ducks/user';
-import Cookies from 'universal-cookie';
+import { connect } from "react-redux";
 import { server_path } from '../constants/server.js';
 import LoadingSpinner from './LoadingSpinner.js';
 import * as ROUTES from '../constants/routes.js';
 
-export default class AddMovie extends Component {
+class AddMovie extends Component {
 
     constructor(props) {
         super(props);
@@ -29,21 +28,23 @@ export default class AddMovie extends Component {
 
     //check if the user is a manager and autorized to be in this page
     componentDidMount() {
+        this.props.dispatch(getManagerStatus());
+        const { managerStatus } = this.props.user;
+        console.log(managerStatus);
+        // if (!managerStatus)
+        //     this.setState({ changePage: true });
 
-        // const dispatch = useDispatch();
-        // dispatch(getManagerStatus());
-
-        const cookie = new Cookies();
-        let userId = cookie.get('userId');
-        //check if the userId is a manager.
-        //if not, the page will be redirected to the home page
-        const url = `${server_path}/login/user`;
-        axios.post(url, { userId: userId })
-            .then(res => {
-                if (!res.data.isManager)
-                    this.setState({ changePage: true });
-            })
-            .catch(err => { console.log(err); })
+        // const cookie = new Cookies();
+        // let userId = cookie.get('userId');
+        // //check if the userId is a manager.
+        // //if not, the page will be redirected to the home page
+        // const url = `${server_path}/login/user`;
+        // axios.post(url, { userId: userId })
+        //     .then(res => {
+        //         if (!res.data.isManager)
+        //             this.setState({ changePage: true });
+        //     })
+        //     .catch(err => { console.log(err); })
     }
 
     //set searchInput state
@@ -220,3 +221,11 @@ export default class AddMovie extends Component {
         )
     }
 }
+
+
+const mapStateToProps = (state) => ({
+    user: state.user
+});
+
+// {<all actions we use>}(<Component name>)
+export default connect(mapStateToProps)(AddMovie);
