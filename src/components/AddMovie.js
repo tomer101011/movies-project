@@ -5,6 +5,8 @@ import '../styles/movie-info-style.css';
 import '../styles/add-movie-style.css';
 
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import { getManagerStatus } from '../redux/ducks/user';
 import Cookies from 'universal-cookie';
 import { server_path } from '../constants/server.js';
 import LoadingSpinner from './LoadingSpinner.js';
@@ -24,12 +26,15 @@ export default class AddMovie extends Component {
             changePage: false// change page
         }
     }
-    
+
     //check if the user is a manager and autorized to be in this page
     componentDidMount() {
+
+        // const dispatch = useDispatch();
+        // dispatch(getManagerStatus());
+
         const cookie = new Cookies();
         let userId = cookie.get('userId');
-
         //check if the userId is a manager.
         //if not, the page will be redirected to the home page
         const url = `${server_path}/login/user`;
@@ -130,10 +135,10 @@ export default class AddMovie extends Component {
             const url = `${server_path}/movies/delete`;
             axios.post(url, data)
                 .then(res => {
-                     //we change the button style to reflect the change
+                    //we change the button style to reflect the change
                     document.getElementById('movieButton').style.backgroundColor = "#4e9af1";
                     document.getElementById('movieButton').innerHTML = "Add to the website";
-                      //movie is not on the database. Next time this function is called, the "if" is called above
+                    //movie is not on the database. Next time this function is called, the "if" is called above
                     this.setState({ movieFromDB: [] });
                 })
                 .catch(err => {
