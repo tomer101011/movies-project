@@ -9,7 +9,7 @@ export const userSlice = createSlice({
     setManagerStatus: (state, action) => {
       const { isManager } = action.payload;
       const userData = { managerStatus: isManager };
-      return { ...state, ...userData }
+      return { ...state, ...userData };
     },
   },
 });

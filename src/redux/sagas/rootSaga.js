@@ -4,6 +4,7 @@ import {getManagerStatus} from "../ducks/user";
 
 //function*- generator functions. Allows to do async easier
 export function* watcherSaga() {
-      yield takeLatest(getManagerStatus.type, handleGetManagerStatus);
-    }
-    
+  yield takeLatest(getManagerStatus.type, handleGetManagerStatus);
+  yield takeLatest(getManagerStatus.type, handleGetManagerStatus);
+  yield takeLatest(getManagerStatus.type, handleGetManagerStatus);
+}

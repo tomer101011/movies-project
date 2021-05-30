@@ -62,9 +62,6 @@ class AddMovie extends Component {
             axios.post(urlOMDb, { search: this.state.searchInput })
                 .then(res => {
 
-                    //when the route send a response, loading is set to false
-                    this.setState({ loading: false });
-
                     //if the movie is not found, we send a message and won't show the movie sections
                     if (res.data === 'movie not found') {
                         if (this.state.movieInfo === '')
@@ -81,6 +78,10 @@ class AddMovie extends Component {
                             trailer: res.data.trailer,
                             movieFromDB: res.data.movieId
                         });
+                })
+                .finally(()=>{
+                      //when the route send a response, loading is set to false
+                      this.setState({ loading: false });
                 })
                 .catch(err => { console.log(err); })
         });
