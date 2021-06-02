@@ -1,18 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: { managerStatus: -1 },
+  initialState: {isManager: -1},
   reducers: {
-    getManagerStatus: () => { },
+    getManagerStatus: () => {},
 
     setManagerStatus: (state, action) => {
-      const { isManager } = action.payload;
-      const userData = { managerStatus: isManager };
-      return { ...state, ...userData };
+      const {isManager} = action.payload;
+      const userData = {isManager};
+      return {...state, ...userData};
     },
   },
 });
 
-export const { getManagerStatus, setManagerStatus } = userSlice.actions;
+export const {getManagerStatus, setManagerStatus} = userSlice.actions;
 export default userSlice.reducer;
