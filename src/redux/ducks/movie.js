@@ -7,9 +7,8 @@ export const movieSlice = createSlice({
     getMovieOMDb: () => {},
 
     setMovieOMDb: (state, action) => {
-    //   const {isManager} = action.payload;
-    //   const movie = {isManager};
-    //   return {...state, ...userData};
+      const movieOMDb = action.payload;
+      return {...state, ...movieOMDb};
     },
   },
 });

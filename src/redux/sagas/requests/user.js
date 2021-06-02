@@ -7,11 +7,5 @@ export function requestGetManagerStatus() {
   let userId = cookie.get("userId");
   const url = `${server_path}/login/user`;
 
-  return axios.request({
-    method: "post",
-    url,
-    data: {
-      userId,
-    },
-  });
+  return axios.post(url, {userId});
 }

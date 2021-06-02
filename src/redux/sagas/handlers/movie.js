@@ -7,9 +7,8 @@ export function* handleGetMovieOMDb(action) {
     //yield is like await
     const searchInput = action.payload;
     const response = yield call(requestGetMovieOMDb,searchInput);
-    console.log(response);
-    // const { data } = response;
-    // yield put(setMovieOMDb({ ...data }));
+    const { data } = response;
+    yield put(setMovieOMDb({ ...data }));
   } catch (error) {
     console.log(error);
   }

@@ -28,6 +28,7 @@ export default function AddMovie() {
   }, [dispatch]);
 
   const {isManager} = useSelector((state) => state.user);
+  const movieOMDb = useSelector((state) => state.movie);
 
   const changeSearchInput = (e) => {
     setSearchInput(e.target.value);
@@ -36,6 +37,8 @@ export default function AddMovie() {
   const searchOMDb = () => {
     setLoading(true);
     dispatch(getMovieOMDb(searchInput));
+    //tomerste
+    //figure how to continue here after dispatch. Maybe with useEffect
   };
 
   const loadSpinner = () => {
@@ -52,6 +55,7 @@ export default function AddMovie() {
 
   return (
     <div className="wrapper">
+      {console.log(movieOMDb)}
       {doRedirect()}
       <main className="content">
         <div className="single">
