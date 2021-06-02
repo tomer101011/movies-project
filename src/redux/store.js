@@ -6,11 +6,13 @@ import {
 import createSagaMiddleware from "redux-saga";
 import { watcherSaga } from "./sagas/rootSaga";
 import userReducer from './ducks/user';
+import movieReducer from './ducks/movie';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const reducer = combineReducers({
     user: userReducer,
+    movie: movieReducer,
 });
 
 //same store config every time

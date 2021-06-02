@@ -28,23 +28,20 @@ class AddMovie extends Component {
 
     //check if the user is a manager and autorized to be in this page
     componentDidMount() {
-        this.props.dispatch(getManagerStatus());
-        const { isManager } = this.props.user;
-        console.log(isManager);
-        // if (!managerStatus)
-        //     this.setState({ changePage: true });
+        if (!managerStatus)
+            this.setState({ changePage: true });
 
-        // const cookie = new Cookies();
-        // let userId = cookie.get('userId');
-        // //check if the userId is a manager.
-        // //if not, the page will be redirected to the home page
-        // const url = `${server_path}/login/user`;
-        // axios.post(url, { userId: userId })
-        //     .then(res => {
-        //         if (!res.data.isManager)
-        //             this.setState({ changePage: true });
-        //     })
-        //     .catch(err => { console.log(err); })
+        const cookie = new Cookies();
+        let userId = cookie.get('userId');
+        //check if the userId is a manager.
+        //if not, the page will be redirected to the home page
+        const url = `${server_path}/login/user`;
+        axios.post(url, { userId: userId })
+            .then(res => {
+                if (!res.data.isManager)
+                    this.setState({ changePage: true });
+            })
+            .catch(err => { console.log(err); })
     }
 
     //set searchInput state
